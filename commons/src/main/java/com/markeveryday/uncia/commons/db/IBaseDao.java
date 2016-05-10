@@ -1,18 +1,3 @@
-/*
- * Copyright (c) the original author or authors
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * You may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *        http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.markeveryday.uncia.commons.db;
 
 import java.io.Serializable;
@@ -137,7 +122,7 @@ public interface IBaseDao<E> {
     List<E> findByExample(E entity, Page... pages);
 
     /**
-     * 根据属性查找，属性对应的值可以支持含有like条件，如果是com.baidu.iit.dao.sqlcondition.Like的类型。
+     * 根据属性查找，属性对应的值可以支持含有like条件
      *
      * @param pages Integer[] 分页查找参数，开始页，与最大记录条数
      *
@@ -146,7 +131,7 @@ public interface IBaseDao<E> {
     List<E> findByProperties(ConditionSet conditionSet, Page... pages);
 
     /**
-     * 根据属性查找，属性对应的值可以支持含有like条件，如果是com.baidu.iit.dao.sqlcondition.Like的类型。
+     * 根据属性查找，属性对应的值可以支持含有like条件
      *
      * @param pages Integer[] 分页查找参数，开始页，与最大记录条数
      *
@@ -155,7 +140,7 @@ public interface IBaseDao<E> {
     E findUniqueByProperties(ConditionSet conditionSet, Page... pages);
 
     /**
-     * 根据属性查找，属性对应的值可以支持含有like条件，以及是com.baidu.iit.dao.sqlcondition下的条件实体。
+     * 根据属性查找，属性对应的值可以支持含有like条件
      *
      * @param pages Integer[] 分页查找参数，开始页，与最大记录条数
      *
@@ -164,7 +149,7 @@ public interface IBaseDao<E> {
     List<E> findByProperty(String propertyName, Object value, Page... pages);
 
     /**
-     * 根据属性查找,并指定排序列，属性对应的值可以支持含有like条件，以及是com.baidu.iit.dao.sqlcondition下的实体。
+     * 根据属性查找,并指定排序列，属性对应的值可以支持含有like条件
      *
      * @param properties        Map
      * @param orderByProperties OrderBy[] 需要排序的属性名，
@@ -175,7 +160,7 @@ public interface IBaseDao<E> {
     List<E> findByProperties(ConditionSet properties, List<OrderCondition> orderByProperties, Page... pages);
 
     /**
-     * 根据属性查找,并指定排序列，属性对应的值可以支持含有like条件，以及是com.baidu.iit.dao.sqlcondition下的实体。
+     * 根据属性查找,并指定排序列，属性对应的值可以支持含有like条件
      *
      * @param properties      Map
      * @param orderByProperty OrderBy 需要排序的属性名
@@ -186,7 +171,7 @@ public interface IBaseDao<E> {
     List<E> findByProperties(ConditionSet properties, OrderCondition orderByProperty, Page... pages);
 
     /**
-     * 根据属性查找,并指定排序列，属性对应的值可以支持含有like条件，以及是com.baidu.iit.dao.sqlcondition下的实体。
+     * 根据属性查找,并指定排序列，属性对应的值可以支持含有like条件
      *
      * @param properties        Map
      * @param orderByProperties OrderBy[] 需要排序的属性名，
@@ -197,7 +182,7 @@ public interface IBaseDao<E> {
     E findUniqueByProperties(ConditionSet properties, List<OrderCondition> orderByProperties, Page... pages);
 
     /**
-     * 根据单个属性查找,并指定排序列，属性对应的值可以支持含有like，以及是com.baidu.iit.dao.sqlcondition下的实体。
+     * 根据单个属性查找,并指定排序列，属性对应的值可以支持含有like
      *
      * @param orderByProperties OrderBy[] 需要排序的属性名，
      * @param pages             Integer[] 分页查找参数，开始页，与最大记录条数
