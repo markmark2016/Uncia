@@ -1,4 +1,11 @@
-*.class
+
+# Mac OS
+.DS_Store
+
+# Intellij IDEA
+*.iml
+.idea/
+target/
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
