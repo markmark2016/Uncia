@@ -151,7 +151,7 @@ public interface IBaseDao<E> {
     /**
      * 根据属性查找,并指定排序列，属性对应的值可以支持含有like条件
      *
-     * @param properties        Map
+     * @param properties        条件属性
      * @param orderByProperties OrderBy[] 需要排序的属性名，
      * @param pages             Integer[] 分页查找参数，开始页，与最大记录条数
      *
@@ -162,7 +162,7 @@ public interface IBaseDao<E> {
     /**
      * 根据属性查找,并指定排序列，属性对应的值可以支持含有like条件
      *
-     * @param properties      Map
+     * @param properties      条件属性
      * @param orderByProperty OrderBy 需要排序的属性名
      * @param pages           Integer[] 分页查找参数，开始页，与最大记录条数
      *
@@ -173,7 +173,7 @@ public interface IBaseDao<E> {
     /**
      * 根据属性查找,并指定排序列，属性对应的值可以支持含有like条件
      *
-     * @param properties        Map
+     * @param properties        条件属性
      * @param orderByProperties OrderBy[] 需要排序的属性名，
      * @param pages             Integer[] 分页查找参数，开始页，与最大记录条数
      *
@@ -195,17 +195,17 @@ public interface IBaseDao<E> {
     /**
      * 根据属性查询记录个数
      *
-     * @param properties
+     * @param properties 条件属性
      *
-     * @return
+     * @return 符合条件属性的条目个数
      */
     Long findCountByProperties(ConditionSet properties);
 
     /**
      * 执行hql语句查询，如果上面的那些方法都不可用的话，如果不带totalCountHql，本方法不计算总记录数
      *
-     * @param hql   String
-     * @param pages Integer[]
+     * @param hql   查询sql
+     * @param pages 分页参数
      *
      * @return Collection
      */
@@ -214,7 +214,7 @@ public interface IBaseDao<E> {
     /**
      * 执行hql语句查询，如果上面的那些方法都不可用的话
      *
-     * @param hql String
+     * @param hql 查询sql
      *
      * @return Collection
      */
@@ -223,15 +223,11 @@ public interface IBaseDao<E> {
     /**
      * 跟与hql和参数查询,如果不带totalCountHql，本方法不计算总记录数
      *
-     * @param hql
-     * @param queryParam
-     * @param pages
+     * @param hql        查询hql
+     * @param queryParam 查询参数
+     * @param pages      分页参数
      *
      * @return
-     *
-     * @author zhaolei
-     * <p>
-     * Jan 7, 2009
      */
     List queryByHQL(final String hql, final Map<String, Object> queryParam, String totalCountHql,
                     final Page... pages);
@@ -244,11 +240,11 @@ public interface IBaseDao<E> {
     /**
      * 提供sql和参数查询,如果不带totalCountSql，本方法不计算总记录数
      *
-     * @param sql
-     * @param queryParam
-     * @param totalCountHql
-     * @param entities(实体映射)
-     * @param pages
+     * @param sql            查询sql
+     * @param queryParam     查询参数
+     * @param totalCountHql  计数sql
+     * @param entities(实体映射) 实体
+     * @param pages          分页参数
      *
      * @return
      */
@@ -260,43 +256,59 @@ public interface IBaseDao<E> {
     /**
      * 提供sql和参数查询,如果不带totalCountSql，本方法不计算总记录数
      *
-     * @param sql
-     * @param queryParam
-     * @param totalCountSql
-     * @param pages
+     * @param sql           查询sql
+     * @param queryParam    查询参数
+     * @param totalCountSql 计数sql
+     * @param pages         分页参数
      *
      * @return
-     *
-     * @author lichang
      */
     List queryBySQL(final String sql, final Map<String, Object> queryParam, String totalCountSql,
                     final Page... pages);
 
     /**
      * 执行更新的hql
+     *
+     * @param hql 待执行的hql
      */
     Integer executeUpdateHql(String hql);
 
+    /**
+     * 执行更新的hql
+     *
+     * @param hql        待执行的hql
+     * @param queryParam 查询参数
+     *
+     * @return 更新的条目树
+     */
     Integer executeUpdateHql(String hql, Map<String, Object> queryParam);
 
+    /**
+     * 执行更新的sql
+     *
+     * @param sql    待执行的sql
+     * @param params 参数信息
+     *
+     * @return 更新的条目数
+     */
     Integer executeUpdateSql(final String sql, final Map params);
 
     /**
      * 根据属性值，批量删除
      *
-     * @param propertyName
-     * @param value
+     * @param propertyName 属性名
+     * @param value        属性值
      *
-     * @return
+     * @return 删除的个数
      */
     Integer deleteByProperty(String propertyName, Object value);
 
     /**
      * 根据属性的值批量删除
      *
-     * @param props
+     * @param props 属性参数
      *
-     * @return
+     * @return 删除的条目数
      */
     Integer deleteByProperties(Map<String, Object> props);
 
@@ -305,21 +317,20 @@ public interface IBaseDao<E> {
      *
      * @param properties 属性名称数组，属性名称支持段式："属性名OPERATOR属性值",OPERATOR可以为"=,>,<",字符串类型可以带%查询，表示匹配任意
      * @param orderBy    按属性排序， 属性名：0|1，0降序，1升序
-     * @param pages
+     * @param pages      分页参数
      */
-
     List<E> findByCommonCondition(String[] properties, String[] orderBy,
                                   Page... pages);
 
     /**
      * 查询数据库指定的条目
      *
-     * @param properties
-     * @param orderByProperties
+     * @param properties        查找参数
+     * @param orderByProperties 排序参数
      * @param offset            开始index
      * @param limit             最大数目
      *
-     * @return
+     * @return list or null
      */
     List<E> findHeadByProperties(final ConditionSet properties, final List<OrderCondition> orderByProperties,
                                  final int offset, final int limit);
@@ -327,8 +338,8 @@ public interface IBaseDao<E> {
     /**
      * 查询数据库指定的条目
      *
-     * @param hql
-     * @param params
+     * @param hql    hibernate查询语句
+     * @param params 查询参数
      * @param offset 开始index
      * @param limit  最大数目
      *
