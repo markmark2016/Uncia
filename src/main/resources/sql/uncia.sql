@@ -65,19 +65,21 @@ CREATE TABLE T_ACCOUNT
 DROP TABLE IF EXISTS T_BOOK;
 CREATE TABLE T_BOOK
 (
-  ID          BIGINT PRIMARY KEY                            NOT NULL
-  COMMENT '图书ID'           AUTO_INCREMENT,
-  NAME        VARCHAR(256) DEFAULT ' '                      NOT NULL
+  ID            BIGINT PRIMARY KEY                            NOT NULL
+  COMMENT '图书ID'             AUTO_INCREMENT,
+  NAME          VARCHAR(256) DEFAULT ' '                      NOT NULL
   COMMENT '图书名称',
-  AUTHOR      VARCHAR(128) DEFAULT ' '
+  AUTHOR        VARCHAR(128) DEFAULT ' '
   COMMENT '书籍作者,多个作者以逗号分隔',
-  SUMMARY     VARCHAR(512) DEFAULT ''
+  SUMMARY       VARCHAR(512) DEFAULT ''
   COMMENT '书籍概括',
-  COVER_IMG   VARCHAR(1024) DEFAULT ''                      NOT NULL
+  COVER_IMG     VARCHAR(1024) DEFAULT ''                      NOT NULL
   COMMENT '书籍封面URL',
-  CREATE_TIME DATETIME DEFAULT '1970-00-00 00:00:00'        NOT NULL
+  DELETE_STATUS TINYINT(4) DEFAULT '0'                        NOT NULL
+  COMMENT '删除状态',
+  CREATE_TIME   DATETIME DEFAULT '1970-00-00 00:00:00'        NOT NULL
   COMMENT '创建时间',
-  MOD_TIME    TIMESTAMP DEFAULT CURRENT_TIMESTAMP           NOT NULL
+  MOD_TIME      TIMESTAMP DEFAULT CURRENT_TIMESTAMP           NOT NULL
   COMMENT '修改时间'
 
 )
@@ -160,3 +162,96 @@ CREATE TABLE T_USER
   COMMENT '修改时间'
 )
   COMMENT '用户表';
+
+DROP TABLE IF EXISTS T_REMARK;
+CREATE TABLE T_REMARK
+(
+  ID            BIGINT PRIMARY KEY                     NOT NULL
+  COMMENT '书评ID'                                                AUTO_INCREMENT,
+  BOOK_ID       BIGINT DEFAULT 1                       NOT NULL
+  COMMENT '关联的图书ID',
+  USER_ID       BIGINT DEFAULT 1                       NOT NULL
+  COMMENT '用户ID',
+  GROUP_ID      BIGINT                                 NOT NULL
+  COMMENT '小组ID',
+  START_PAGE    INT DEFAULT 0                          NOT NULL
+  COMMENT '开始页',
+  END_PAGE      INT DEFAULT 0                          NOT NULL
+  COMMENT '结束页',
+  TITLE         VARCHAR(256)                           NOT NULL DEFAULT ''
+  COMMENT '书评标题',
+  CONTENT       VARCHAR(2048)                          NOT NULL DEFAULT ''
+  COMMENT '书评内容',
+  DELETE_STATUS TINYINT                                NOT NULL DEFAULT FALSE
+  COMMENT '删除状态',
+  CREATE_TIME   DATETIME                                        DEFAULT '1970-01-01 00:00:00'
+  COMMENT '记录创建时间',
+  MOD_TIME      TIMESTAMP DEFAULT CURRENT_TIMESTAMP    NOT NULL
+  COMMENT '修改时间'
+)
+  COMMENT '书评';
+
+DROP TABLE IF EXISTS T_INTERACT;
+CREATE TABLE T_INTERACT
+(
+  ID            BIGINT PRIMARY KEY                     NOT NULL,
+  REMARK_ID     BIGINT DEFAULT 1                       NOT NULL
+  COMMENT '书评ID',
+  USER_ID       BIGINT                                 NOT NULL
+  COMMENT '用户ID',
+  TYPE          VARCHAR(16) DEFAULT 'COMMENT'          NOT NULL
+  COMMENT '交互类型,COMMENT,LIKE',
+  COMMENTS      VARCHAR(1024)                                   DEFAULT ' '
+  COMMENT '如果是评论则填充改字段,否则为空',
+  DELETE_STATUS TINYINT                                NOT NULL DEFAULT FALSE
+  COMMENT '删除状态',
+  CREATE_TIME   DATETIME                                        DEFAULT '1970-01-01 00:00:00'
+  COMMENT '记录创建时间',
+  MOD_TIME      TIMESTAMP DEFAULT CURRENT_TIMESTAMP    NOT NULL
+  COMMENT '修改时间'
+)
+  COMMENT '用户交互, 赞和评论';
+
+DROP TABLE IF EXISTS T_SCORE;
+CREATE TABLE T_SCORE
+(
+  ID            BIGINT PRIMARY KEY                     NOT NULL
+  COMMENT 'ID'           AUTO_INCREMENT,
+  USER_ID       BIGINT DEFAULT 1                       NOT NULL
+  COMMENT '用户ID',
+  SCORE         INT                                    NOT NULL
+  COMMENT '得分',
+  TYPE          VARCHAR(16) DEFAULT 'REMARK'           NOT NULL
+  COMMENT '得分类型,例如REMARK打卡, COMMENT,评论,LIKE点赞',
+  DELETE_STATUS TINYINT DEFAULT FALSE                  NOT NULL
+  COMMENT '删除状态,删除某次打卡或者赞之后取消相应的分数',
+  CREATE_TIME   DATETIME DEFAULT '1970-01-01 00:00:00'
+  COMMENT '记录创建时间',
+  MOD_TIME      TIMESTAMP DEFAULT CURRENT_TIMESTAMP    NOT NULL
+  COMMENT '修改时间'
+)
+  COMMENT '得分表';
+
+
+DROP TABLE IF EXISTS T_MESSAGE;
+
+CREATE TABLE T_MESSAGE
+(
+  ID          BIGINT PRIMARY KEY                     NOT NULL
+  COMMENT '消息ID'       AUTO_INCREMENT,
+  USER_ID     BIGINT DEFAULT 1                       NOT NULL
+  COMMENT '推送的用户',
+  INTERACT_ID BIGINT DEFAULT 1                       NOT NULL
+  COMMENT '交互ID',
+  TYPE        VARCHAR(16) DEFAULT 'LIKE'             NOT NULL
+  COMMENT '消息类型,例如 SYSTEM, LIKE,COMMENT等',
+  CHECKED     TINYINT DEFAULT FALSE                  NOT NULL
+  COMMENT '用于标记用户是否已经阅读',
+  CONTENT     VARCHAR(256) DEFAULT ' '               NOT NULL
+  COMMENT '消息内容',
+  CREATE_TIME DATETIME DEFAULT '1970-01-01 00:00:00'
+  COMMENT '记录创建时间',
+  MOD_TIME    TIMESTAMP DEFAULT CURRENT_TIMESTAMP    NOT NULL
+  COMMENT '修改时间'
+)
+  COMMENT '消息表,记录对用户推送的消息,例如点赞,评论等';
