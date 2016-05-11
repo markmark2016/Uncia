@@ -1,4 +1,4 @@
-package com.markeveryday.uncia.commons.db;
+package com.markeveryday.commons.db;
 
 /**
  * 大于或等于条件

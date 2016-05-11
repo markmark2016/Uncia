@@ -1,4 +1,4 @@
-package com.markeveryday.uncia.commons.db;
+package com.markeveryday.commons.db;
 
 /**
  * 代表在两个值之间的条件

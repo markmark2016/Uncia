@@ -1,4 +1,4 @@
-package com.markeveryday.uncia.commons.db;
+package com.markeveryday.commons.db;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;

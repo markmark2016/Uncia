@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.markeveryday.uncia.commons.db;
+package com.markeveryday.commons.db;
 
 /**
  * 与关系的 {@link ConditionSet}

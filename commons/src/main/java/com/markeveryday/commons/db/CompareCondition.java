@@ -1,5 +1,5 @@
 
-package com.markeveryday.uncia.commons.db;
+package com.markeveryday.commons.db;
 
 /**
  * 比较条件的抽象
