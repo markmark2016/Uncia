@@ -1,42 +1,38 @@
-package com.markeveryday.admin.model;
+package com.markeveryday.model;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.markeveryday.bean.InteractType;
-
 /**
- * 交互实体
+ * 企业实体
  *
  * @author liming
  */
 @Entity
-@Table(name = "T_INTERACT")
-public class Interact {
+@Table(name = "T_ENTERPRISE")
+public class Enterprise {
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "REMARK_ID")
-    private Long remarkId;
-    @Column(name = "USER_ID")
-    private Long userId;
+    @Column(name = "ENTERPRISE_NAME")
+    private String enterpriseName;
 
-    @Column(name = "TYPE")
-    @Enumerated(EnumType.STRING)
-    private InteractType type;
+    @Column(name = "ACCOUNT_ID")
+    private Long accountId;
 
-    @Column(name = "COMMENTS")
-    private String comments;
+    @Column(name = "APP_ID")
+    private String appId;
+
+    @Column(name = "DESCRIPTION")
+    private String description;
 
     @Column(name = "DELETE_STATUS")
     private Boolean deleteStatus;
@@ -47,7 +43,7 @@ public class Interact {
     @Column(name = "MOD_TIME")
     private Date modTime;
 
-    public Interact() {
+    public Enterprise() {
     }
 
     public Long getId() {
@@ -58,36 +54,36 @@ public class Interact {
         this.id = id;
     }
 
-    public Long getRemarkId() {
-        return remarkId;
+    public String getEnterpriseName() {
+        return enterpriseName;
     }
 
-    public void setRemarkId(Long remarkId) {
-        this.remarkId = remarkId;
+    public void setEnterpriseName(String enterpriseName) {
+        this.enterpriseName = enterpriseName;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getAccountId() {
+        return accountId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
     }
 
-    public InteractType getType() {
-        return type;
+    public String getAppId() {
+        return appId;
     }
 
-    public void setType(InteractType type) {
-        this.type = type;
+    public void setAppId(String appId) {
+        this.appId = appId;
     }
 
-    public String getComments() {
-        return comments;
+    public String getDescription() {
+        return description;
     }
 
-    public void setComments(String comments) {
-        this.comments = comments;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Boolean getDeleteStatus() {

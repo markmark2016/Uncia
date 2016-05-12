@@ -1,4 +1,4 @@
-package com.markeveryday.admin.model;
+package com.markeveryday.model;
 
 import java.util.Date;
 

@@ -1,4 +1,4 @@
-package com.markeveryday.admin.model;
+package com.markeveryday.model;
 
 import java.util.Date;
 
@@ -10,40 +10,34 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * 组实体
+ * 图书实体
  *
  * @author liming
  */
 @Entity
-@Table(name = "T_GROUP")
-public class Group {
-
+@Table(name = "T_BOOK")
+public class Book {
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "GROUP_NAME")
-    private String groupName;
-    @Column(name = "ENTERPRISE_ID")
-    private Long enterpriseId;
-
-    @Column(name = "DESCRIPTION")
-    private String description;
-
-    @Column(name = "CREATOR")
-    private String creator;
-
+    @Column(name = "NAME")
+    private String name;
+    @Column(name = "AUTHOR")
+    private String author;
+    @Column(name = "SUMMARY")
+    private String summary;
+    @Column(name = "COVER_IMG")
+    private String coverImage;
     @Column(name = "DELETE_STATUS")
     private Boolean deleteStatus;
-
     @Column(name = "CREATE_TIME")
     private Date createTime;
-
     @Column(name = "MOD_TIME")
     private Date modTime;
 
-    public Group() {
+    public Book() {
     }
 
     public Long getId() {
@@ -54,36 +48,36 @@ public class Group {
         this.id = id;
     }
 
-    public String getGroupName() {
-        return groupName;
+    public String getName() {
+        return name;
     }
 
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Long getEnterpriseId() {
-        return enterpriseId;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setEnterpriseId(Long enterpriseId) {
-        this.enterpriseId = enterpriseId;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
-    public String getDescription() {
-        return description;
+    public String getSummary() {
+        return summary;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
-    public String getCreator() {
-        return creator;
+    public String getCoverImage() {
+        return coverImage;
     }
 
-    public void setCreator(String creator) {
-        this.creator = creator;
+    public void setCoverImage(String coverImage) {
+        this.coverImage = coverImage;
     }
 
     public Boolean getDeleteStatus() {

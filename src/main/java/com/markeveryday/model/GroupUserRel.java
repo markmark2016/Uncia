@@ -1,4 +1,4 @@
-package com.markeveryday.admin.model;
+package com.markeveryday.model;
 
 import java.util.Date;
 
@@ -11,34 +11,29 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.markeveryday.bean.ReadStatus;
+import com.markeveryday.bean.UserRole;
 
 /**
- * 组与图书联系实体
+ * 组与用户联系实体
  *
  * @author liming
  */
 @Entity
-@Table(name = "T_GROUP_BOOK_REL")
-public class GroupBookRel {
+@Table(name = "T_GROUP_USER_REL")
+public class GroupUserRel {
 
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "BOOK_ID")
-    private Long bookId;
-
     @Column(name = "GROUP_ID")
     private Long groupId;
+    @Column(name = "USER_ID")
+    private Long userId;
 
-    @Column(name = "SLOGN")
-    private String slogn;
-
-    @Column(name = "STATUS")
+    @Column(name = "USER_ROLE")
     @Enumerated(EnumType.STRING)
-    private ReadStatus status;
+    private UserRole userRole;
 
     @Column(name = "DELETE_STATUS")
     private Boolean deleteStatus;
@@ -49,7 +44,7 @@ public class GroupBookRel {
     @Column(name = "MOD_TIME")
     private Date modTime;
 
-    public GroupBookRel() {
+    public GroupUserRel() {
     }
 
     public Long getId() {
@@ -60,14 +55,6 @@ public class GroupBookRel {
         this.id = id;
     }
 
-    public Long getBookId() {
-        return bookId;
-    }
-
-    public void setBookId(Long bookId) {
-        this.bookId = bookId;
-    }
-
     public Long getGroupId() {
         return groupId;
     }
@@ -76,20 +63,20 @@ public class GroupBookRel {
         this.groupId = groupId;
     }
 
-    public String getSlogn() {
-        return slogn;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setSlogn(String slogn) {
-        this.slogn = slogn;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public ReadStatus getStatus() {
-        return status;
+    public UserRole getUserRole() {
+        return userRole;
     }
 
-    public void setStatus(ReadStatus status) {
-        this.status = status;
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
 
     public Boolean getDeleteStatus() {

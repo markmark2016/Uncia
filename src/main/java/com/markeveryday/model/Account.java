@@ -1,38 +1,41 @@
-package com.markeveryday.admin.model;
+package com.markeveryday.model;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.markeveryday.bean.AccountType;
+
 /**
- * 企业实体
+ * 账户实体
  *
  * @author liming
  */
 @Entity
-@Table(name = "T_ENTERPRISE")
-public class Enterprise {
+@Table(name = "T_ACCOUNT")
+public class Account {
+
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "ENTERPRISE_NAME")
-    private String enterpriseName;
+    @Column(name = "USERNAME")
+    private String username;
 
-    @Column(name = "ACCOUNT_ID")
-    private Long accountId;
+    @Column(name = "PASSWORD")
+    private String password;
 
-    @Column(name = "APP_ID")
-    private String appId;
-
-    @Column(name = "DESCRIPTION")
-    private String description;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "TYPE")
+    private AccountType type;
 
     @Column(name = "DELETE_STATUS")
     private Boolean deleteStatus;
@@ -43,7 +46,7 @@ public class Enterprise {
     @Column(name = "MOD_TIME")
     private Date modTime;
 
-    public Enterprise() {
+    public Account() {
     }
 
     public Long getId() {
@@ -54,36 +57,28 @@ public class Enterprise {
         this.id = id;
     }
 
-    public String getEnterpriseName() {
-        return enterpriseName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEnterpriseName(String enterpriseName) {
-        this.enterpriseName = enterpriseName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public Long getAccountId() {
-        return accountId;
+    public String getPassword() {
+        return password;
     }
 
-    public void setAccountId(Long accountId) {
-        this.accountId = accountId;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getAppId() {
-        return appId;
+    public AccountType getType() {
+        return type;
     }
 
-    public void setAppId(String appId) {
-        this.appId = appId;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setType(AccountType type) {
+        this.type = type;
     }
 
     public Boolean getDeleteStatus() {

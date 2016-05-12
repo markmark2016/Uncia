@@ -1,41 +1,38 @@
-package com.markeveryday.admin.model;
+package com.markeveryday.model;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.markeveryday.bean.AccountType;
-
 /**
- * 账户实体
+ * 组实体
  *
  * @author liming
  */
 @Entity
-@Table(name = "T_ACCOUNT")
-public class Account {
+@Table(name = "T_GROUP")
+public class Group {
 
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "USERNAME")
-    private String username;
+    @Column(name = "GROUP_NAME")
+    private String groupName;
+    @Column(name = "ENTERPRISE_ID")
+    private Long enterpriseId;
 
-    @Column(name = "PASSWORD")
-    private String password;
+    @Column(name = "DESCRIPTION")
+    private String description;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "TYPE")
-    private AccountType type;
+    @Column(name = "CREATOR")
+    private String creator;
 
     @Column(name = "DELETE_STATUS")
     private Boolean deleteStatus;
@@ -46,7 +43,7 @@ public class Account {
     @Column(name = "MOD_TIME")
     private Date modTime;
 
-    public Account() {
+    public Group() {
     }
 
     public Long getId() {
@@ -57,28 +54,36 @@ public class Account {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getGroupName() {
+        return groupName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 
-    public String getPassword() {
-        return password;
+    public Long getEnterpriseId() {
+        return enterpriseId;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setEnterpriseId(Long enterpriseId) {
+        this.enterpriseId = enterpriseId;
     }
 
-    public AccountType getType() {
-        return type;
+    public String getDescription() {
+        return description;
     }
 
-    public void setType(AccountType type) {
-        this.type = type;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
     }
 
     public Boolean getDeleteStatus() {

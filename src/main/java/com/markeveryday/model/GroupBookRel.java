@@ -1,4 +1,4 @@
-package com.markeveryday.admin.model;
+package com.markeveryday.model;
 
 import java.util.Date;
 
@@ -11,31 +11,34 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.markeveryday.bean.ScoreType;
+import com.markeveryday.bean.ReadStatus;
 
 /**
- * 得分实体
+ * 组与图书联系实体
  *
  * @author liming
  */
 @Entity
-@Table(name = "T_SCORE")
-public class Score {
+@Table(name = "T_GROUP_BOOK_REL")
+public class GroupBookRel {
 
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "USER_ID")
-    private Long userId;
+    @Column(name = "BOOK_ID")
+    private Long bookId;
 
-    @Column(name = "TYPE")
+    @Column(name = "GROUP_ID")
+    private Long groupId;
+
+    @Column(name = "SLOGN")
+    private String slogn;
+
+    @Column(name = "STATUS")
     @Enumerated(EnumType.STRING)
-    private ScoreType type;
-
-    @Column(name = "SCORE")
-    private Integer score;
+    private ReadStatus status;
 
     @Column(name = "DELETE_STATUS")
     private Boolean deleteStatus;
@@ -46,7 +49,7 @@ public class Score {
     @Column(name = "MOD_TIME")
     private Date modTime;
 
-    public Score() {
+    public GroupBookRel() {
     }
 
     public Long getId() {
@@ -57,28 +60,36 @@ public class Score {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getBookId() {
+        return bookId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setBookId(Long bookId) {
+        this.bookId = bookId;
     }
 
-    public ScoreType getType() {
-        return type;
+    public Long getGroupId() {
+        return groupId;
     }
 
-    public void setType(ScoreType type) {
-        this.type = type;
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
     }
 
-    public Integer getScore() {
-        return score;
+    public String getSlogn() {
+        return slogn;
     }
 
-    public void setScore(Integer score) {
-        this.score = score;
+    public void setSlogn(String slogn) {
+        this.slogn = slogn;
+    }
+
+    public ReadStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ReadStatus status) {
+        this.status = status;
     }
 
     public Boolean getDeleteStatus() {

@@ -1,43 +1,53 @@
-package com.markeveryday.admin.model;
+package com.markeveryday.model;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.markeveryday.bean.InteractType;
+
 /**
- * 图书实体
+ * 交互实体
  *
  * @author liming
  */
 @Entity
-@Table(name = "T_BOOK")
-public class Book {
+@Table(name = "T_INTERACT")
+public class Interact {
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "NAME")
-    private String name;
-    @Column(name = "AUTHOR")
-    private String author;
-    @Column(name = "SUMMARY")
-    private String summary;
-    @Column(name = "COVER_IMG")
-    private String coverImage;
+    @Column(name = "REMARK_ID")
+    private Long remarkId;
+    @Column(name = "USER_ID")
+    private Long userId;
+
+    @Column(name = "TYPE")
+    @Enumerated(EnumType.STRING)
+    private InteractType type;
+
+    @Column(name = "COMMENTS")
+    private String comments;
+
     @Column(name = "DELETE_STATUS")
     private Boolean deleteStatus;
+
     @Column(name = "CREATE_TIME")
     private Date createTime;
+
     @Column(name = "MOD_TIME")
     private Date modTime;
 
-    public Book() {
+    public Interact() {
     }
 
     public Long getId() {
@@ -48,36 +58,36 @@ public class Book {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Long getRemarkId() {
+        return remarkId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRemarkId(Long remarkId) {
+        this.remarkId = remarkId;
     }
 
-    public String getAuthor() {
-        return author;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public String getSummary() {
-        return summary;
+    public InteractType getType() {
+        return type;
     }
 
-    public void setSummary(String summary) {
-        this.summary = summary;
+    public void setType(InteractType type) {
+        this.type = type;
     }
 
-    public String getCoverImage() {
-        return coverImage;
+    public String getComments() {
+        return comments;
     }
 
-    public void setCoverImage(String coverImage) {
-        this.coverImage = coverImage;
+    public void setComments(String comments) {
+        this.comments = comments;
     }
 
     public Boolean getDeleteStatus() {

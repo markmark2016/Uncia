@@ -1,4 +1,4 @@
-package com.markeveryday.admin.model;
+package com.markeveryday.model;
 
 import java.util.Date;
 
@@ -11,29 +11,31 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.markeveryday.bean.UserRole;
+import com.markeveryday.bean.ScoreType;
 
 /**
- * 组与用户联系实体
+ * 得分实体
  *
  * @author liming
  */
 @Entity
-@Table(name = "T_GROUP_USER_REL")
-public class GroupUserRel {
+@Table(name = "T_SCORE")
+public class Score {
 
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "GROUP_ID")
-    private Long groupId;
+
     @Column(name = "USER_ID")
     private Long userId;
 
-    @Column(name = "USER_ROLE")
+    @Column(name = "TYPE")
     @Enumerated(EnumType.STRING)
-    private UserRole userRole;
+    private ScoreType type;
+
+    @Column(name = "SCORE")
+    private Integer score;
 
     @Column(name = "DELETE_STATUS")
     private Boolean deleteStatus;
@@ -44,7 +46,7 @@ public class GroupUserRel {
     @Column(name = "MOD_TIME")
     private Date modTime;
 
-    public GroupUserRel() {
+    public Score() {
     }
 
     public Long getId() {
@@ -55,14 +57,6 @@ public class GroupUserRel {
         this.id = id;
     }
 
-    public Long getGroupId() {
-        return groupId;
-    }
-
-    public void setGroupId(Long groupId) {
-        this.groupId = groupId;
-    }
-
     public Long getUserId() {
         return userId;
     }
@@ -71,12 +65,20 @@ public class GroupUserRel {
         this.userId = userId;
     }
 
-    public UserRole getUserRole() {
-        return userRole;
+    public ScoreType getType() {
+        return type;
     }
 
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
+    public void setType(ScoreType type) {
+        this.type = type;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
     }
 
     public Boolean getDeleteStatus() {
