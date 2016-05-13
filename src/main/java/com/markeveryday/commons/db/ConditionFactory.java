@@ -5,8 +5,9 @@ package com.markeveryday.commons.db;
  *
  * @author liming
  */
-public final class SqlConditionFactory {
-    private SqlConditionFactory() {
+public final class ConditionFactory {
+
+    private ConditionFactory() {
     }
 
     /**
@@ -103,4 +104,29 @@ public final class SqlConditionFactory {
     public static CompareCondition between(String propertyName, Object minValue, Object maxValue) {
         return new BetweenCondition(propertyName, minValue, maxValue);
     }
+
+    /**
+     * 创建一个属性值等于指定值的条件集
+     *
+     * @param propertyName 属性名
+     * @param value        属性值
+     *
+     * @return 与条件集
+     */
+    public static ConditionSet and(String propertyName, Object value) {
+        return ConditionAndSet.newInstance(propertyName, value);
+    }
+
+    /**
+     * 创建一个属性值等于指定值的条件集
+     *
+     * @param propertyName 属性名
+     * @param value        属性值
+     *
+     * @return 或条件集
+     */
+    public static ConditionSet or(String propertyName, Object value) {
+        return ConditionOrSet.newInstance(propertyName, value);
+    }
+
 }

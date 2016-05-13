@@ -1,12 +1,12 @@
 package com.markeveryday.dao;
 
 import com.markeveryday.commons.db.IBaseDao;
-import com.markeveryday.model.User;
+import com.markeveryday.model.Role;
 
 /**
- * User DAO 层
+ * 用户角色Dao层
  *
  * @author liming
  */
-public interface UserDao extends IBaseDao<User> {
+public interface RoleDao extends IBaseDao<Role> {
 }

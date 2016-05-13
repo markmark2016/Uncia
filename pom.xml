@@ -3,12 +3,9 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.markeveryday.uncia</groupId>
     <artifactId>uncia</artifactId>
-    <packaging>pom</packaging>
+    <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>commons</module>
-        <module>backend</module>
-    </modules>
+
     <name>uncia</name>
 
     <properties>
@@ -17,13 +14,6 @@
     </properties>
 
     <dependencies>
-
-        <dependency>
-            <groupId>com.markeveryday.uncia</groupId>
-            <artifactId>commons</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
 
         <!--spring-->
         <dependency>
@@ -69,7 +59,60 @@
             <version>${spring.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-acl</artifactId>
+            <version>4.0.4.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>4.0.4.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>4.0.4.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>4.0.4.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>4.0.4.RELEASE</version>
+        </dependency>
 
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>1.1.0.Final</version>
+        </dependency>
+
+
+        <!--hibernate lib-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-c3p0</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-ehcache</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.1.3.Final</version>
+        </dependency>
 
         <!--jsp lib-->
         <dependency>
@@ -83,6 +126,12 @@
             <version>2.1</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+
 
 
         <!--jaskson lib-->
@@ -101,7 +150,6 @@
             <artifactId>jackson-annotations</artifactId>
             <version>2.6.3</version>
         </dependency>
-
 
 
         <!--logback-->
@@ -136,8 +184,6 @@
         </dependency>
 
 
-
-
         <!--unit test-->
         <dependency>
             <groupId>junit</groupId>
@@ -146,9 +192,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-
-
 
 
     <build>

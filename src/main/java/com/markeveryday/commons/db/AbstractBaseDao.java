@@ -20,9 +20,10 @@ import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate4.HibernateCallback;
 import org.springframework.orm.hibernate4.HibernateOperations;
-import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate4.HibernateTemplate;
 
 /**
  * DAO层基础实现, 主要采用HibernateTemplate实现, 推荐使用sessionFactory.
@@ -31,12 +32,15 @@ import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
  * @author liming
  */
 @SuppressWarnings({"unchecked", "rawtypes"})
-public abstract class AbstractBaseDao<E> extends HibernateDaoSupport implements IBaseDao<E> {
+public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
 
     /**
      * 当参数集合大于500时，将自动转换为join
      */
     private static final int MAX_PARAM_COLLECTION_SIZE = 500;
+
+    @Autowired
+    protected HibernateTemplate hibernateTemplate;
 
     /**
      * 实体类型信息
@@ -60,7 +64,7 @@ public abstract class AbstractBaseDao<E> extends HibernateDaoSupport implements 
      * @param entity 待保存的实体
      */
     public void save(E entity) {
-        currentSession().save(entity);
+        hibernateTemplate.save(entity);
     }
 
     /**
@@ -345,8 +349,8 @@ public abstract class AbstractBaseDao<E> extends HibernateDaoSupport implements 
     /**
      * 执行hql语句查询，如果上面的那些方法都不可用的话，如果不带totalCountHql，本方法不计算总记录数
      *
-     * @param hql   查询sql
-     * @param pages 分页参数
+     * @param hql       查询sql
+     * @param pageParam 分页参数
      *
      * @return Collection
      */
@@ -927,6 +931,10 @@ public abstract class AbstractBaseDao<E> extends HibernateDaoSupport implements 
         }
         results[0] = sbuffer.toString();
         return results;
+    }
+
+    public HibernateTemplate getHibernateTemplate() {
+        return hibernateTemplate;
     }
 
 }

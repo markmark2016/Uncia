@@ -5,11 +5,13 @@ package com.markeveryday.bean;
  *
  * @author liming16
  */
-public enum AccountType {
+public enum AccountRole {
     // 超级管理员
-    SUPER_ADMINISTRATOR,
+    SUPER_ADMIN,
+    ADMIN,
     // 企业帐号
     ENTERPRISE,
     // 普通用户
-    COMMON_USER
+    COMMON_USER,
+    API_CALL
 }

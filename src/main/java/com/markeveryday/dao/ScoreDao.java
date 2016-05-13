@@ -1,7 +1,7 @@
 package com.markeveryday.dao;
 
-import com.markeveryday.model.Score;
 import com.markeveryday.commons.db.IBaseDao;
+import com.markeveryday.model.Score;
 
 /**
  * Score DAO 层

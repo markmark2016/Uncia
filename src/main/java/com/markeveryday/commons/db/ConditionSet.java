@@ -19,6 +19,17 @@ public abstract class ConditionSet {
      */
     private List<String> groups = new ArrayList<String>();
 
+    public ConditionSet() {
+    }
+
+    public ConditionSet(String key, Object value) {
+        put(key, value);
+    }
+
+    public ConditionSet(CompareCondition condition) {
+        this.addCompareCondition(condition);
+    }
+
     public List<String> getGroups() {
         return groups;
     }
@@ -29,17 +40,6 @@ public abstract class ConditionSet {
 
     public void addGroupBy(String propertyName) {
         groups.add(propertyName);
-    }
-
-    public ConditionSet() {
-    }
-
-    public ConditionSet(String key, Object value) {
-        put(key, value);
-    }
-
-    public ConditionSet(CompareCondition condition) {
-        this.addCompareCondition(condition);
     }
 
     /**

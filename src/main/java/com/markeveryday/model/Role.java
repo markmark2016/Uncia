@@ -4,33 +4,34 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.markeveryday.bean.AccountRole;
+
 /**
- * 账户实体
+ * 账户角色表实体
  *
  * @author liming
  */
 @Entity
-@Table(name = "T_ACCOUNT")
-public class Account {
-
+@Table(name = "T_ROLE")
+public class Role {
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "USERNAME")
-    private String username;
+    @Column(name = "ACCOUNT_ID")
+    private Long accountId;
 
-    @Column(name = "PASSWORD")
-    private String password;
-
-    @Column(name = "ENABLED")
-    private Boolean enabled;
+    @Column(name = "ROLE")
+    @Enumerated(EnumType.STRING)
+    private AccountRole role;
 
     @Column(name = "CREATE_TIME")
     private Date createTime;
@@ -38,7 +39,7 @@ public class Account {
     @Column(name = "MOD_TIME")
     private Date modTime;
 
-    public Account() {
+    public Role() {
     }
 
     public Long getId() {
@@ -49,28 +50,20 @@ public class Account {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public Long getAccountId() {
+        return accountId;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
     }
 
-    public String getPassword() {
-        return password;
+    public AccountRole getRole() {
+        return role;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
+    public void setRole(AccountRole role) {
+        this.role = role;
     }
 
     public Date getCreateTime() {

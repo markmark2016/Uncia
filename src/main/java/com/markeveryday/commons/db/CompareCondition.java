@@ -1,4 +1,3 @@
-
 package com.markeveryday.commons.db;
 
 /**
@@ -51,28 +50,28 @@ public class CompareCondition {
         return maxValue;
     }
 
-    public Object getMinValue() {
-        return minValue;
-    }
-
-    public Object getValue() {
-        return value;
-    }
-
-    public String getPropertyName() {
-        return propertyName;
-    }
-
     public void setMaxValue(Object maxValue) {
         this.maxValue = maxValue;
+    }
+
+    public Object getMinValue() {
+        return minValue;
     }
 
     public void setMinValue(Object minValue) {
         this.minValue = minValue;
     }
 
+    public Object getValue() {
+        return value;
+    }
+
     public void setValue(Object value) {
         this.value = value;
+    }
+
+    public String getPropertyName() {
+        return propertyName;
     }
 
     public void setPropertyName(String propertyName) {

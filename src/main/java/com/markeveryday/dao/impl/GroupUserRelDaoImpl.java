@@ -2,9 +2,9 @@ package com.markeveryday.dao.impl;
 
 import org.springframework.stereotype.Repository;
 
+import com.markeveryday.commons.db.AbstractBaseDao;
 import com.markeveryday.dao.GroupUserRelDao;
 import com.markeveryday.model.GroupUserRel;
-import com.markeveryday.commons.db.AbstractBaseDao;
 
 /**
  * GroupUserRel DAO 实现

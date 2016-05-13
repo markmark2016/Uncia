@@ -7,6 +7,22 @@ package com.markeveryday.commons.db;
  */
 public class ConditionOrSet extends ConditionSet {
 
+    /**
+     * 构造函数
+     */
+    public ConditionOrSet() {
+        super();
+    }
+
+    /**
+     * 构造函数，构建一个条件
+     *
+     * @param key
+     * @param value
+     */
+    private ConditionOrSet(String key, Object value) {
+        super(key, value);
+    }
 
     /**
      * 静态构造方法
@@ -25,23 +41,6 @@ public class ConditionOrSet extends ConditionSet {
      */
     public static ConditionOrSet newInstance() {
         return new ConditionOrSet();
-    }
-
-    /**
-     * 构造函数
-     */
-    public ConditionOrSet() {
-        super();
-    }
-
-    /**
-     * 构造函数，构建一个条件
-     *
-     * @param key
-     * @param value
-     */
-    private ConditionOrSet(String key, Object value) {
-        super(key, value);
     }
 
 }

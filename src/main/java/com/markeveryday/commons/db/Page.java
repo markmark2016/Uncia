@@ -12,10 +12,8 @@ import java.util.Map;
  */
 public class Page implements java.io.Serializable {
 
-    private static final long serialVersionUID = 693435998917420886L;
-
     public static final int FIRST_PAGE_NUM = 1;
-
+    private static final long serialVersionUID = 693435998917420886L;
     /**
      * 生成分页时所带的参数键值对
      */
@@ -99,30 +97,21 @@ public class Page implements java.io.Serializable {
     }
 
     /**
-     * 获取记录总数
-     *
-     * @return 记录总数
-     */
-    public int getRecordsCount() {
-        return recordsCount;
-    }
-
-    /**
-     * 获取单页最大记录数
-     *
-     * @return 单页最大记录数
-     */
-    public Integer getMaxRecords() {
-        return maxRecords;
-    }
-
-    /**
      * 设置当前页
      *
      * @param currentPage 当前页
      */
     public void setCurrentPage(int currentPage) {
         this.currentPage = currentPage;
+    }
+
+    /**
+     * 获取记录总数
+     *
+     * @return 记录总数
+     */
+    public int getRecordsCount() {
+        return recordsCount;
     }
 
     /**
@@ -135,12 +124,12 @@ public class Page implements java.io.Serializable {
     }
 
     /**
-     * 设置参数Map
+     * 获取单页最大记录数
      *
-     * @param parameterMap 参数Map
+     * @return 单页最大记录数
      */
-    public void setParameterMap(Map<String, Object> parameterMap) {
-        this.parameterMap = parameterMap;
+    public Integer getMaxRecords() {
+        return maxRecords;
     }
 
     /**
@@ -150,6 +139,15 @@ public class Page implements java.io.Serializable {
      */
     public void setMaxRecords(Integer maxRecords) {
         this.maxRecords = maxRecords;
+    }
+
+    /**
+     * 设置参数Map
+     *
+     * @param parameterMap 参数Map
+     */
+    public void setParameterMap(Map<String, Object> parameterMap) {
+        this.parameterMap = parameterMap;
     }
 
     /**
@@ -170,15 +168,6 @@ public class Page implements java.io.Serializable {
     }
 
     /**
-     * 设置页数
-     *
-     * @param pageCount
-     */
-    public void setPageCount(int pageCount) {
-        this.pageCount = pageCount;
-    }
-
-    /**
      * 获取页数
      *
      * @return
@@ -191,6 +180,15 @@ public class Page implements java.io.Serializable {
             }
         }
         return pageCount;
+    }
+
+    /**
+     * 设置页数
+     *
+     * @param pageCount
+     */
+    public void setPageCount(int pageCount) {
+        this.pageCount = pageCount;
     }
 
 }

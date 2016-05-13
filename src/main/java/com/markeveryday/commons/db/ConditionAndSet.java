@@ -23,6 +23,23 @@ package com.markeveryday.commons.db;
 public class ConditionAndSet extends ConditionSet {
 
     /**
+     * 构造函数
+     */
+    public ConditionAndSet() {
+        super();
+    }
+
+    /**
+     * 构造函数，构建一个条件
+     *
+     * @param key
+     * @param value
+     */
+    private ConditionAndSet(String key, Object value) {
+        super(key, value);
+    }
+
+    /**
      * 静态构造方法
      *
      * @param key
@@ -41,23 +58,6 @@ public class ConditionAndSet extends ConditionSet {
      */
     public static ConditionAndSet newInstance() {
         return new ConditionAndSet();
-    }
-
-    /**
-     * 构造函数
-     */
-    public ConditionAndSet() {
-        super();
-    }
-
-    /**
-     * 构造函数，构建一个条件
-     *
-     * @param key
-     * @param value
-     */
-    private ConditionAndSet(String key, Object value) {
-        super(key, value);
     }
 
 }

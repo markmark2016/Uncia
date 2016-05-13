@@ -3,14 +3,14 @@ package com.markeveryday.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.markeveryday.commons.db.AbstractBaseDao;
-import com.markeveryday.dao.RemarkDao;
-import com.markeveryday.model.Remark;
+import com.markeveryday.dao.RoleDao;
+import com.markeveryday.model.Role;
 
 /**
- * Remark DAO 实现
+ * 用户角色DAO实现
  *
  * @author liming
  */
 @Repository
-public class RemarkDaoImpl extends AbstractBaseDao<Remark> implements RemarkDao {
+public class RoleDaoImpl extends AbstractBaseDao<Role> implements RoleDao {
 }

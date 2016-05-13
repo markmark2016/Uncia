@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import com.markeveryday.commons.db.ConditionAndSet;
-import com.markeveryday.commons.db.ConditionSet;
+import com.markeveryday.commons.db.ConditionFactory;
 import com.markeveryday.dao.UserDao;
 import com.markeveryday.model.User;
 import com.markeveryday.service.UserService;
@@ -47,9 +46,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByOpenid(String openid) {
         Assert.notNull(openid, "openid 不能为null.");
-        ConditionSet conditionSet = new ConditionAndSet();
-        conditionSet.put("openid", openid);
-        return userDao.findUniqueByProperties(conditionSet);
+        return userDao.findUniqueByProperties(ConditionFactory.and("openid", openid));
     }
 
     /**

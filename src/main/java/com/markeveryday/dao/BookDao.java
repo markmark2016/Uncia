@@ -1,7 +1,7 @@
 package com.markeveryday.dao;
 
-import com.markeveryday.model.Book;
 import com.markeveryday.commons.db.IBaseDao;
+import com.markeveryday.model.Book;
 
 /**
  * Book DAO 层

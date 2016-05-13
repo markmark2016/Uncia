@@ -30,8 +30,8 @@ CREATE TABLE T_GROUP
   COMMENT '组所属的企业',
   DESCRIPTION   VARCHAR(1024) DEFAULT ''               NOT NULL
   COMMENT '组的描述信息',
-  GROUP_STATUS  VARCHAR(16) DEFAULT 'NEW'              NOT NULL
-  COMMENT '组的状态,新组,消亡的组,活跃的组',
+  DELETE_STATUS TINYINT DEFAULT FALSE                  NOT NULL
+  COMMENT '删除状态',
   CREATOR       VARCHAR(32) DEFAULT 'SYSTEM'           NOT NULL
   COMMENT '组的创建者',
   CREATE_TIME   DATETIME DEFAULT '1970-00-00 00:00:00' NOT NULL
@@ -150,8 +150,8 @@ CREATE TABLE T_USER
   UNIONID        VARCHAR(128) DEFAULT 'DEFAULT_UNIONID' NOT NULL,
   REMARK         VARCHAR(1024) DEFAULT ' '              NOT NULL
   COMMENT '公众号运营者对粉丝的备注，公众号运营者可在微信公众平台用户管理界面对粉丝添加备注',
-  GROUP_ID       BIGINT(20) DEFAULT '1'                 NOT NULL
-  COMMENT '用户所在的分组信息,默认为1(默认组)',
+  GROUPID        BIGINT(20) DEFAULT '1'                 NOT NULL
+  COMMENT '微信用户所在的分组信息,默认为1(默认组),不同于本系统的分组',
   ENTERPRISE_ID  BIGINT(20) DEFAULT '1'                 NOT NULL
   COMMENT '用户所属的企业,默认为1,默认企业',
   DELETE_STATUS  TINYINT(4) DEFAULT '0'                 NOT NULL

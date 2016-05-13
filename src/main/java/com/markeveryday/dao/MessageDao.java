@@ -1,7 +1,7 @@
 package com.markeveryday.dao;
 
-import com.markeveryday.model.Message;
 import com.markeveryday.commons.db.IBaseDao;
+import com.markeveryday.model.Message;
 
 /**
  * Message DAO 层

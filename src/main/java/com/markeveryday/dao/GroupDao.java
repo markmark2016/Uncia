@@ -1,7 +1,7 @@
 package com.markeveryday.dao;
 
-import com.markeveryday.model.Group;
 import com.markeveryday.commons.db.IBaseDao;
+import com.markeveryday.model.Group;
 
 /**
  * Group DAO 层
