@@ -7,11 +7,11 @@ package com.markeveryday.bean;
  */
 public enum AccountRole {
     // 超级管理员
-    SUPER_ADMIN,
-    ADMIN,
+    ROLE_SUPER_ADMIN,
+    ROLE_ADMIN,
     // 企业帐号
-    ENTERPRISE,
+    ROLE_ENTERPRISE,
     // 普通用户
-    COMMON_USER,
-    API_CALL
+    ROLE_USER,
+    ROLE_API_CALL
 }

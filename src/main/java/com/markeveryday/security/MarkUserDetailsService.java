@@ -34,6 +34,7 @@ public class MarkUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         Account account = accountService.findByUsername(username);
+
         if (account == null) {
             throw new UsernameNotFoundException("Username not found! " + username);
         }

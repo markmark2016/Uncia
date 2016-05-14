@@ -88,4 +88,16 @@ public class Account {
     public void setModTime(Date modTime) {
         this.modTime = modTime;
     }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", enabled=" + enabled +
+                ", createTime=" + createTime +
+                ", modTime=" + modTime +
+                '}';
+    }
 }
