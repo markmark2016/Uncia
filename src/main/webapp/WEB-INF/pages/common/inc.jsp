@@ -12,10 +12,13 @@
         basePath += "/";
     }
     User user = LoginHelper.getLoginUser();
+    String staticPath = "resources/dev";
 %>
 
 <script>
     var MarkMark = MarkMark || {};
     MarkMark.constants = MarkMark.constants || {};
-    MarkMark.constants.currentUser = "<%=user%>"
+    MarkMark.constants.currentUser = "<%=user%>";
+    MarkMark.constants.CONTEXT = "<%=basePath%>";
+    MarkMark.constants.STATIC_PATH = "<%=staticPath%>";
 </script>
