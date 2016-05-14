@@ -6,6 +6,9 @@
 *.iml
 .idea/
 target/
+node_modules/
+bower_components/
+lib/
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/

@@ -1,0 +1,29 @@
+<div class="container">
+
+    <div class="row" id="pwd-container">
+        <div class="col-md-4"></div>
+
+        <div class="col-md-4">
+            <section class="login-form">
+                <form method="post" action="/login" role="login">
+                    <!-- <img src="http://i.imgur.com/RcmcLv4.png" class="img-responsive" alt=""/>-->
+                    <input type="text" name="username" placeholder="用户名" required class="form-control input-lg"/>
+                    <input type="password" class="form-control input-lg" name="password" placeholder="密码"
+                           required/>
+                    <div class="pwstrength_viewport_progress"></div>
+                    <button type="submit" name="go" class="btn btn-lg btn-success btn-block">登录</button>
+                    <div>
+                        <a href="#">创建账户</a> 或 <a href="#">重置密码</a>
+                    </div>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                </form>
+                <div class="form-links">
+                    <a href="#">www.markeveryday.com</a>
+                </div>
+            </section>
+        </div>
+
+        <div class="col-md-4"></div>
+
+    </div>
+</div>
