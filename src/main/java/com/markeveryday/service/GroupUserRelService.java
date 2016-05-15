@@ -1,4 +1,4 @@
-package com.markeveryday.service.impl;
+package com.markeveryday.service;
 
 import com.markeveryday.model.GroupUserRel;
 

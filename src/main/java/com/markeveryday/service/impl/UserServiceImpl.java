@@ -1,22 +1,19 @@
 package com.markeveryday.service.impl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
-import com.markeveryday.commons.db.ConditionAndSet;
 import com.markeveryday.commons.db.ConditionFactory;
-import com.markeveryday.commons.db.ConditionSet;
 import com.markeveryday.dao.UserDao;
 import com.markeveryday.model.GroupUserRel;
 import com.markeveryday.model.User;
+import com.markeveryday.service.GroupUserRelService;
 import com.markeveryday.service.UserService;
 
 /**

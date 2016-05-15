@@ -3,15 +3,18 @@ package com.markeveryday.service.impl;
 import com.markeveryday.commons.db.ConditionFactory;
 import com.markeveryday.dao.GroupUserRelDao;
 import com.markeveryday.model.GroupUserRel;
+import com.markeveryday.service.GroupUserRelService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.util.List;
 
 /**
- * Created by liming on 16/5/15.
+ * @author liming
  */
+@Service
 public class GroupUserRelServiceImpl implements GroupUserRelService {
 
     @Autowired

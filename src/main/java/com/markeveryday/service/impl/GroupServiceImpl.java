@@ -6,6 +6,7 @@ import com.markeveryday.model.Group;
 import com.markeveryday.service.GroupService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 /**
  * @author liming
  */
+@Service
 public class GroupServiceImpl implements GroupService {
 
     @Autowired
