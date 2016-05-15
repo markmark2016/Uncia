@@ -33,6 +33,9 @@ public class Role {
     @Enumerated(EnumType.STRING)
     private AccountRole role;
 
+    @Column(name = "DELETE_STATUS")
+    private Boolean deleteStatus;
+
     @Column(name = "CREATE_TIME")
     private Date createTime;
 
@@ -80,5 +83,13 @@ public class Role {
 
     public void setModTime(Date modTime) {
         this.modTime = modTime;
+    }
+
+    public Boolean getDeleteStatus() {
+        return deleteStatus;
+    }
+
+    public void setDeleteStatus(Boolean deleteStatus) {
+        this.deleteStatus = deleteStatus;
     }
 }

@@ -1,0 +1,32 @@
+{
+  "name": "uncia",
+  "version": "1.0.0",
+  "description": "New version of markmark",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "bower": "^1.7.9",
+    "gulp": "^3.9.1",
+    "gulp-bower": "^0.0.13",
+    "gulp-clean": "^0.3.2",
+    "gulp-cli": "^1.2.1",
+    "gulp-run-sequence": "^0.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markmark2016/Uncia.git"
+  },
+  "keywords": [
+    "Uncia",
+    "MarkMark"
+  ],
+  "author": "liming",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/markmark2016/Uncia/issues"
+  },
+  "homepage": "https://github.com/markmark2016/Uncia#readme"
+}

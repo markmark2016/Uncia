@@ -45,7 +45,6 @@ gulp.task('build_lib', function () {
         .pipe(gulp.dest('./resources/dev/common/lib/bootstrap/css/'));
     gulp.src('./bower_components/bootstrap/dist/fonts/*')
         .pipe(gulp.dest('./resources/dev/common/lib/bootstrap/fonts/'));
-    
 
     gulp.src('./bower_components/clipboard/dist/clipboard.min.js')
         .pipe(gulp.dest('./resources/dev/common/lib/clipboard/js/'));
@@ -61,8 +60,10 @@ gulp.task('build_lib', function () {
     gulp.src('./bower_components/requirejs/require.js')
         .pipe(gulp.dest('./resources/dev/common/lib/requirejs/js/'));
 
-});
+    /*gulp.src('./bower_components/datatables.net/js/jquery.dataTables.min.js')
+     .pipe(gulp.dest('./resources/dev/common/lib/datatables/js/'));*/
 
+});
 
 gulp.task('install', function () {
     runSequence('clean', 'bower', 'build_lib');

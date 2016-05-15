@@ -48,22 +48,16 @@
                 <a ui-sref="admin">Dashboard</a>
             </li>
             <li>
-                <a ui-sref="admin.users">用户管理</a>
+                <a ui-sref="admin.user">用户管理</a>
             </li>
             <li>
-                <a ui-sref="admin.remark">书评</a>
+                <a ui-sref="admin.remark">书评管理</a>
             </li>
             <li>
-                <a href="#">Events</a>
+                <a href="admin.group">小组管理</a>
             </li>
             <li>
-                <a href="#">About</a>
-            </li>
-            <li>
-                <a href="#">Services</a>
-            </li>
-            <li>
-                <a href="#">Contact</a>
+                <a href="admin.book">图书管理</a>
             </li>
         </ul>
     </div>

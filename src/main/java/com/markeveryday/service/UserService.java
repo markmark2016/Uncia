@@ -56,6 +56,21 @@ public interface UserService {
     }
 
     /**
+     * 根据企业id查找用户列表
+     * @param enterpriseId 企业id
+     * @return 用户列表或者空集合
+     */
+    List<User>  findByEnterpriseId(Long enterpriseId);
+
+    /**
+     * 根据组id查找用户列表
+     * @param groupId 小组id
+     * @return 用户列表或者空集合
+     */
+    List<User> findByGroupId(Long groupId);
+
+
+    /**
      * 获取所有用户
      *
      * @return

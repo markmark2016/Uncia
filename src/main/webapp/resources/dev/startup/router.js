@@ -25,15 +25,27 @@ define(
                     controller: 'AdminController',
                     controllerAs: 'aCtrl'
                 })
-                .state('admin.users', {
-                    url: 'users',
+                .state('admin.user', {
+                    url: 'user',
                     templateUrl: constants.resource('/admin/tpl/users.html'),
-                    controller: 'AdminController',
+                    controller: 'AdminUserController',
                     controllerAs: 'aCtrl'
                 })
                 .state('admin.remark', {
                     url: 'remark',
                     templateUrl: constants.resource('/admin/tpl/remark.html'),
+                    controller: 'AdminController',
+                    controllerAs: 'aCtrl'
+                })
+                .state('admin.group', {
+                    url: 'remark',
+                    templateUrl: constants.resource('/admin/tpl/group.html'),
+                    controller: 'AdminController',
+                    controllerAs: 'aCtrl'
+                })
+                .state('admin.book', {
+                    url: 'remark',
+                    templateUrl: constants.resource('/admin/tpl/book.html'),
                     controller: 'AdminController',
                     controllerAs: 'aCtrl'
                 })

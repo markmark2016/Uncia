@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
+import com.markeveryday.commons.db.ConditionAndSet;
 import com.markeveryday.commons.db.ConditionFactory;
+import com.markeveryday.commons.db.ConditionSet;
 import com.markeveryday.dao.RoleDao;
 import com.markeveryday.model.Role;
 import com.markeveryday.service.RoleService;
@@ -26,16 +28,14 @@ public class RoleServiceImpl implements RoleService {
 
     /**
      * 根据账户id获取角色信息
-     *
-     * @param accountId
-     *
-     * @return
      */
     @Override
     public List<Role> getRolesByAccountId(Long accountId) {
         Assert.notNull(accountId, "accountId to find roles can't be null.");
+        ConditionAndSet conditions = (ConditionAndSet) ConditionFactory.and("accountId", accountId);
+        conditions.put("deleteStatus", false);
         List<Role> roles =
-                roleDao.findByProperties(ConditionFactory.and("accountId", accountId));
+                roleDao.findByProperties(conditions);
         if (!CollectionUtils.isEmpty(roles)) {
             return roles;
         } else {
@@ -45,10 +45,6 @@ public class RoleServiceImpl implements RoleService {
 
     /**
      * 根据账户名获取角色信息
-     *
-     * @param accountName
-     *
-     * @return
      */
     @Override
     public List<Role> getRolesByAccount(String accountName) {
