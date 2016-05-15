@@ -5,9 +5,7 @@
 
 <body>
 
-<div class="container">
-
-
+<%--<div class="container">
     <form action="${loginProcessingUrl}" method="post">
         <fieldset>
             <legend>Please Login dddd</legend>
@@ -16,7 +14,7 @@
                 <div>
                     Failed to login.
                     <c:if test="${SPRING_SECURITY_LAST_EXCEPTION != null}">
-                        Reason: <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />
+                        Reason: <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/>
                     </c:if>
                 </div>
             </c:if>
@@ -43,16 +41,42 @@
                 <button type="submit" class="btn">Log in</button>
             </div>
             <input type="hidden" name="${_csrf.parameterName}"
-                   value="${_csrf.token}" />
+                   value="${_csrf.token}"/>
         </fieldset>
     </form>
+</div>--%>
+<div class="container-fluid login-container">
+    <section class="container login-form">
+        <section>
+            <form action="${loginProcessingUrl}" method="post" role="login">
+                <img src="<%=staticPath%>/common/img/login_head_logo.png" alt="" class="img-responsive"/>
+                <div class="form-group">
+                    <input type="text" name="username" required class="form-control" placeholder="用户名"/>
+                </div>
+                <div class="from-group">
+                    <input type="password" name="password" required class="form-control" placeholder="密码"/>
+                    <input type="hidden" name="${_csrf.parameterName}"
+                           value="${_csrf.token}"/>
+                </div>
+                <c:if test="${param.error != null}">
+                    <div class="from-group">
+                        <div class="alert alert-danger" role="alert">
+                            登录失败,
+                            <c:if test="${SPRING_SECURITY_LAST_EXCEPTION != null}">
+                                失败原因: <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/>
+                            </c:if>
+                        </div>
+                    </div>
+                </c:if>
+                <button type="submit" name="go" class="btn btn-success btn-block">登录</button>
+            </form>
+        </section>
+    </section>
+
 </div>
 
 
-
-
 <%@ include file="../common/footer.jsp" %>
-
 
 </body>
 </html>

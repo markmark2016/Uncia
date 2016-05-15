@@ -18,24 +18,24 @@ define(
 
             $urlRouterProvider.otherwise('/');
 
-
             $stateProvider
-                .state('default', {
-                    url: '/',
-                    controller: 'MarkMarkController',
-                    controllerAs:'markController'
-                })
                 .state('admin', {
-                    url: '/admin/{account:id}',
+                    url: '/',
                     templateUrl: constants.resource('/admin/tpl/index.html'),
                     controller: 'AdminController',
                     controllerAs: 'aCtrl'
                 })
-                .state('login', {
-                    url: '/login',
-                    templateUrl: constants.resource('/login/tpl/index.html'),
-                    controller: 'LoginController',
-                    controllerAs: 'lCtrl'
+                .state('admin.users', {
+                    url: 'users',
+                    templateUrl: constants.resource('/admin/tpl/users.html'),
+                    controller: 'AdminController',
+                    controllerAs: 'aCtrl'
+                })
+                .state('admin.remark', {
+                    url: 'remark',
+                    templateUrl: constants.resource('/admin/tpl/remark.html'),
+                    controller: 'AdminController',
+                    controllerAs: 'aCtrl'
                 })
         }
 
