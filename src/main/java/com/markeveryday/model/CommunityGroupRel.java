@@ -1,5 +1,7 @@
 package com.markeveryday.model;
 
+import com.markeveryday.utils.JsonHelpler;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -90,5 +92,10 @@ public class CommunityGroupRel {
 
     public void setModTime(Date modTime) {
         this.modTime = modTime;
+    }
+
+    @Override
+    public String toString() {
+        return JsonHelpler.toJsonString(this);
     }
 }

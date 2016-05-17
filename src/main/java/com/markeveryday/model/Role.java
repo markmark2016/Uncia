@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.markeveryday.bean.AccountRole;
+import com.markeveryday.utils.JsonHelpler;
 
 /**
  * 账户角色表实体
@@ -91,5 +92,10 @@ public class Role {
 
     public void setDeleteStatus(Boolean deleteStatus) {
         this.deleteStatus = deleteStatus;
+    }
+
+    @Override
+    public String toString() {
+        return JsonHelpler.toJsonString(this);
     }
 }

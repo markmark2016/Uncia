@@ -54,10 +54,10 @@
                 <a ui-sref="admin.remark">书评管理</a>
             </li>
             <li>
-                <a href="admin.group">小组管理</a>
+                <a ui-sref="admin.group">小组管理</a>
             </li>
             <li>
-                <a href="admin.book">图书管理</a>
+                <a ui-sref="admin.book">图书管理</a>
             </li>
         </ul>
     </div>

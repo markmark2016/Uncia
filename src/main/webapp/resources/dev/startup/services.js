@@ -5,7 +5,7 @@
  */
 define(
     [
-        'admin/js/services/admin-service'
+        'admin/js/services/admin-data-service'
     ], function () {
         
     });

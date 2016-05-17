@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.markeveryday.bean.InteractType;
+import com.markeveryday.utils.JsonHelpler;
 
 /**
  * 交互实体
@@ -112,5 +113,10 @@ public class Interact {
 
     public void setModTime(Date modTime) {
         this.modTime = modTime;
+    }
+
+    @Override
+    public String toString() {
+        return JsonHelpler.toJsonString(this);
     }
 }

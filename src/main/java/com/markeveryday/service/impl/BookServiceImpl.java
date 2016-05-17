@@ -1,11 +1,14 @@
 package com.markeveryday.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import com.markeveryday.commons.db.ConditionAndSet;
+import com.markeveryday.commons.db.ConditionFactory;
 import com.markeveryday.dao.BookDao;
 import com.markeveryday.model.Book;
 import com.markeveryday.service.BookService;
@@ -23,12 +26,11 @@ public class BookServiceImpl implements BookService {
 
     /**
      * 保存或者更新一本书
-     *
-     * @param book
      */
     @Override
     public void saveBook(Book book) {
         Assert.notNull(book, "待保存的book不能为null.");
+        book.setModTime(new Date());
         bookDao.saveOrUpdate(book);
     }
 
@@ -36,7 +38,6 @@ public class BookServiceImpl implements BookService {
      * 根据Id查找对应的book
      *
      * @param id book id
-     *
      * @return book or null.
      */
     @Override
@@ -46,9 +47,15 @@ public class BookServiceImpl implements BookService {
     }
 
     /**
+     * 查找所有图书
+     */
+    @Override
+    public List<Book> findAll() {
+        return bookDao.findByProperties(ConditionFactory.and("deleteStatus", false));
+    }
+
+    /**
      * 删除指定的book
-     *
-     * @param book
      */
     @Override
     public void deleteBook(Book book) {

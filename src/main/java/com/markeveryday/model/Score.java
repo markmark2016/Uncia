@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.markeveryday.bean.ScoreType;
+import com.markeveryday.utils.JsonHelpler;
 
 /**
  * 得分实体
@@ -103,5 +104,10 @@ public class Score {
 
     public void setModTime(Date modTime) {
         this.modTime = modTime;
+    }
+
+    @Override
+    public String toString() {
+        return JsonHelpler.toJsonString(this);
     }
 }

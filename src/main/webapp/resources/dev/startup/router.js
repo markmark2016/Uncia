@@ -37,16 +37,16 @@ define(
                     controllerAs: 'aCtrl'
                 })
                 .state('admin.group', {
-                    url: 'remark',
+                    url: 'group',
                     templateUrl: constants.resource('/admin/tpl/group.html'),
                     controller: 'AdminController',
                     controllerAs: 'aCtrl'
                 })
                 .state('admin.book', {
-                    url: 'remark',
+                    url: 'book',
                     templateUrl: constants.resource('/admin/tpl/book.html'),
-                    controller: 'AdminController',
-                    controllerAs: 'aCtrl'
+                    controller: 'AdminBookController',
+                    controllerAs: 'bookCtrl'
                 })
         }
 

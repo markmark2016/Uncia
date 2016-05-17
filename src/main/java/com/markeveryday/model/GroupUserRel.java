@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.markeveryday.bean.UserRole;
+import com.markeveryday.utils.JsonHelpler;
 
 /**
  * 组与用户联系实体
@@ -101,5 +102,10 @@ public class GroupUserRel {
 
     public void setModTime(Date modTime) {
         this.modTime = modTime;
+    }
+
+    @Override
+    public String toString() {
+        return JsonHelpler.toJsonString(this);
     }
 }

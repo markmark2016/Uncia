@@ -2,6 +2,8 @@ package com.markeveryday.service;
 
 import com.markeveryday.model.Book;
 
+import java.util.List;
+
 /**
  * Book Service
  *
@@ -24,6 +26,14 @@ public interface BookService {
      * @return book or null.
      */
     Book findById(Long id);
+
+
+    /**
+     * 查找所有图书
+     * @return
+     */
+    List<Book> findAll();
+
 
     /**
      * 删除指定的book

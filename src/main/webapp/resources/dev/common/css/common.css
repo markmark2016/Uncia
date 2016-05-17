@@ -33,3 +33,32 @@ body {
     text-align: center;
     margin-top: 10px;
 }
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus{
+    color: #fff;
+    background-color: #3b73af;
+}
+
+
+/*Angular NG*/
+input.ng-invalid {
+    border: 1px solid #d9534f !important;
+}
+
+
+
+
+
+
+
+
+
+
+/*Modal*/
+.mark-modal .modal-content {
+    border-radius: 0 !important;
+}
+.mark-modal .modal-footer {
+    text-align: center !important;
+}

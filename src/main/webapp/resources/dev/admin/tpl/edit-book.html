@@ -1,0 +1,46 @@
+<div class="modal-header">
+    <h3 class="modal-title">编辑图书</h3>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal" name="editBookForm">
+        <div class="form-group">
+            <label for="bookNameInput" class="col-sm-2 control-label">书名</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="bookNameInput" placeholder="书名"
+                       ng-model="bookEditCtrl.book.name" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="authorInput" class="col-sm-2 control-label">作者</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="authorInput"
+                       placeholder="作者" ng-model="bookEditCtrl.book.author" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="coverImageInput" class="col-sm-2 control-label">封面图片地址</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="coverImageInput"
+                       placeholder="封面图片地址"
+                       ng-model="bookEditCtrl.book.coverImage"
+                       required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="summaryTextArea" class="col-sm-2 control-label">图书描述</label>
+            <div class="col-sm-10">
+                <textarea id="summaryTextArea" class="form-control"
+                          ng-model="bookEditCtrl.book.summary" required placeholder="图书描述信息">
+
+                </textarea>
+            </div>
+        </div>
+
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-success" type="button" ng-disabled="editBookForm.$invalid" ng-click="bookEditCtrl.save()">保存</button>
+    <button class="btn btn-primary" type="button" ng-click="$close()">取消</button>
+</div>

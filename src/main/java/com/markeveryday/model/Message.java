@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.markeveryday.bean.MessageType;
+import com.markeveryday.utils.JsonHelpler;
 
 /**
  * 消息实体
@@ -109,5 +110,10 @@ public class Message {
 
     public void setModTime(Date modTime) {
         this.modTime = modTime;
+    }
+
+    @Override
+    public String toString() {
+        return JsonHelpler.toJsonString(this);
     }
 }
