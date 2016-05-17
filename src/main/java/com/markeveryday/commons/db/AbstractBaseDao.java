@@ -15,19 +15,21 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate4.HibernateTemplate;
+import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.orm.hibernate4.HibernateCallback;
 import org.springframework.orm.hibernate4.HibernateOperations;
-import org.springframework.orm.hibernate4.HibernateTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
- * DAO层基础实现, 主要采用HibernateTemplate实现, 推荐使用sessionFactory.
- * 各个具体的DAO通过继承此类来获得基本的CRUD功能
+ * DAO层基础实现, 主要采用HibernateTemplate实现, 推荐使用sessionFactory. 各个具体的DAO通过继承此类来获得基本的CRUD功能
  *
  * @author liming
  */
@@ -38,6 +40,7 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      * 当参数集合大于500时，将自动转换为join
      */
     private static final int MAX_PARAM_COLLECTION_SIZE = 500;
+
 
     @Autowired
     protected HibernateTemplate hibernateTemplate;
@@ -58,22 +61,24 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
         this.entityClassName = entityClass.getSimpleName();
     }
 
+
     /**
      * 保存实体
      *
      * @param entity 待保存的实体
      */
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
     public void save(E entity) {
-        hibernateTemplate.save(entity);
+        getHibernateTemplate().save(entity);
     }
 
     /**
      * merge实体
      *
      * @param entity 待merge的实体
-     *
      * @return merge后的实体
      */
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
     public E merge(E entity) {
         return getHibernateTemplate().merge(entity);
     }
@@ -83,6 +88,7 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      *
      * @param entity 待删除的实体
      */
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
     public void delete(E entity) {
         getHibernateTemplate().delete(entity);
         getHibernateTemplate().flush();
@@ -91,6 +97,7 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
     /**
      * 更新实体
      */
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
     public void update(E entity) {
         getHibernateTemplate().merge(entity);
     }
@@ -99,10 +106,9 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      * 根据ID查找对应的实体
      *
      * @param id 实体id
-     *
      * @return 对应的实体或者null
      */
-
+    @Transactional(readOnly = true, noRollbackFor = Exception.class)
     public E findById(Serializable id) {
         return getHibernateTemplate().get(entityClass, id);
     }
@@ -112,6 +118,7 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      *
      * @param entity 待保存或者更新的实体
      */
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
     public void saveOrUpdate(E entity) {
         getHibernateTemplate().saveOrUpdate(entity);
     }
@@ -121,6 +128,7 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      *
      * @param entities 待删除的实体
      */
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
     public void deleteBatch(Collection<E> entities) {
         getHibernateTemplate().deleteAll(entities);
     }
@@ -130,6 +138,7 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      *
      * @param entities 待保存或者更新的实体
      */
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
     public void saveOrUpdateAll(Collection<E> entities) {
         getHibernateTemplate().saveOrUpdate(entities);
     }
@@ -138,9 +147,9 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      * 查找所有实体
      *
      * @param pageParam Integer[] 分页查找参数，开始页，与最大记录条数
-     *
      * @return 所有实体
      */
+    @Transactional(readOnly = true, noRollbackFor = Exception.class)
     public List<E> findAll(Page... pageParam) {
 
         return findAll(null, pageParam);
@@ -152,9 +161,9 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      *
      * @param orderByProperties String[] 需要排序的属性名，按数组中先后顺序order by
      * @param pageParam         Integer[] 分页查找参数，开始页，与最大记录条数
-     *
      * @return 所有实体
      */
+    @Transactional(readOnly = true, noRollbackFor = Exception.class)
     public List<E> findAll(final List<OrderCondition> orderByProperties, final Page... pageParam) {
 
         return (List) getHibernateTemplate().execute((HibernateCallback) session -> {
@@ -170,10 +179,9 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      * 查找和所给实体相似的所有实体，相似表示所给实体中非空的属性值相同的实体
      *
      * @param pageParam Integer[] 分页查找参数，开始页，与最大记录条数
-     *
      * @return Collection
      */
-
+    @Transactional(readOnly = true, noRollbackFor = Exception.class)
     public List<E> findByExample(final E example, final Page... pageParam) {
         return (List) getHibernateTemplate().execute((HibernateCallback) session -> {
             Criteria criteria = session.createCriteria(entityClass);
@@ -189,9 +197,9 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      *
      * @param properties Map
      * @param pageParam  Integer[] 分页查找参数，开始页，与最大记录条数
-     *
      * @return Collection
      */
+    @Transactional(readOnly = true, noRollbackFor = Exception.class)
     public List<E> findByProperties(final ConditionSet properties, final Page... pageParam) {
         return findByProperties(properties, new ArrayList<>(), pageParam);
     }
@@ -201,9 +209,9 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      *
      * @param properties Map
      * @param pageParam  Integer[] 分页查找参数，开始页，与最大记录条数
-     *
      * @return Collection
      */
+    @Transactional(readOnly = true, noRollbackFor = Exception.class)
     public E findUniqueByProperties(final ConditionSet properties, final Page... pageParam) {
         return findUniqueByProperties(properties, null, pageParam);
 
@@ -213,9 +221,9 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      * 根据属性查找，属性对应的值可以支持含有like条件
      *
      * @param pageParam Integer[] 分页查找参数，开始页，与最大记录条数
-     *
      * @return Collection
      */
+    @Transactional(readOnly = true, noRollbackFor = Exception.class)
     public List<E> findByProperty(String propertyName, Object value, Page... pageParam) {
         ConditionSet pv = ConditionAndSet.newInstance(propertyName, value);
         return findByProperties(pv, pageParam);
@@ -226,9 +234,9 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      *
      * @param orderByProperties OrderBy[] 需要排序的属性名，
      * @param pageParam         Integer[] 分页查找参数，开始页，与最大记录条数
-     *
      * @return Collection
      */
+    @Transactional(readOnly = true, noRollbackFor = Exception.class)
     public List<E> findByProperty(String propertyName, Object value, List<OrderCondition> orderByProperties,
                                   Page... pageParam) {
         ConditionSet pv = ConditionAndSet.newInstance(propertyName, value);
@@ -241,9 +249,9 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      * @param properties      Map
      * @param orderByProperty String
      * @param pageParam       Integer[] 分页查找参数，开始页，与最大记录条数
-     *
      * @return Collection
      */
+    @Transactional(readOnly = true, noRollbackFor = Exception.class)
     public List<E> findByProperties(final ConditionSet properties, final OrderCondition orderByProperty,
                                     final Page... pageParam) {
         List<OrderCondition> orderConditions = new ArrayList<OrderCondition>();
@@ -260,9 +268,9 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      * @param properties        条件属性
      * @param orderByProperties OrderBy[] 需要排序的属性名，
      * @param pageParam         Integer[] 分页查找参数，开始页，与最大记录条数
-     *
      * @return Collection
      */
+    @Transactional(readOnly = true, noRollbackFor = Exception.class)
     public List<E> findByProperties(final ConditionSet properties, final List<OrderCondition> orderByProperties,
                                     final Page... pageParam) {
         return (List) getHibernateTemplate().execute((HibernateCallback) session -> {
@@ -279,9 +287,9 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      * @param properties        条件属性
      * @param orderByProperties OrderBy[] 需要排序的属性名，
      * @param pageParam         Integer[] 分页查找参数，开始页，与最大记录条数
-     *
      * @return Collection
      */
+    @Transactional(readOnly = true, noRollbackFor = Exception.class)
     public E findUniqueByProperties(final ConditionSet properties, final List<OrderCondition> orderByProperties,
                                     final Page... pageParam) {
 
@@ -301,10 +309,10 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      * @param orderByProperties 排序参数
      * @param offset            开始index
      * @param limit             最大数目
-     *
      * @return list or null
      */
     @Override
+    @Transactional(readOnly = true, noRollbackFor = Exception.class)
     public List<E> findHeadByProperties(final ConditionSet properties, final List<OrderCondition> orderByProperties,
                                         final int offset, final int limit) {
 
@@ -326,10 +334,9 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      * @param params 查询参数
      * @param offset 开始index
      * @param limit  最大数目
-     *
-     * @return
      */
     @Override
+    @Transactional(readOnly = true, noRollbackFor = Exception.class)
     public List<?> queryHeadByHql(final String hql, final Map params, final int offset, final int limit) {
 
         return (List) getHibernateTemplate().execute((HibernateCallback) session -> {
@@ -351,9 +358,9 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      *
      * @param hql       查询sql
      * @param pageParam 分页参数
-     *
      * @return Collection
      */
+    @Transactional(readOnly = true, noRollbackFor = Exception.class)
     public List queryByHQL(final String hql, final String totalCountHql, final Page... pageParam) {
 
         return this.queryByHQL(hql, null, totalCountHql, pageParam);
@@ -364,9 +371,9 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      * 执行hql语句查询，如果上面的那些方法都不可用的话
      *
      * @param hql 查询sql
-     *
      * @return Collection
      */
+    @Transactional(readOnly = true, noRollbackFor = Exception.class)
     public List queryByHQL(final String hql, final Map params) {
         return this.queryByHQL(hql, params, null);
 
@@ -375,6 +382,7 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
     /**
      * 执行hql语句查询;hql语句中变量为?;根据动态参数顺序传入查询参数
      */
+    @Transactional(readOnly = true, noRollbackFor = Exception.class)
     public List queryByHqlWithParams(final String hql, final Object... values) {
         return (List) getHibernateTemplate().execute((HibernateCallback) session -> {
             Query query = session.createQuery(hql);
@@ -393,9 +401,8 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      * @param hql        查询hql
      * @param queryParam 查询参数
      * @param pageParam  分页参数
-     *
-     * @return
      */
+    @Transactional(readOnly = true, noRollbackFor = Exception.class)
     public List queryByHQL(final String hql, final Map<String, Object> queryParam, final String totalCountHql,
                            final Page... pageParam) {
         return (List) getHibernateTemplate().execute((HibernateCallback) session -> {
@@ -430,9 +437,8 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      * @param totalCountHql  计数sql
      * @param entities(实体映射) 实体
      * @param pageParam      分页参数
-     *
-     * @return
      */
+    @Transactional(readOnly = true, noRollbackFor = Exception.class)
     public List queryBySQL(final String sql, final Map<String, Object> queryParam, final String totalCountHql,
                            final Map<String, Class<?>> entities, final Page... pageParam) {
         return (List) getHibernateTemplate().execute((HibernateCallback) session -> {
@@ -477,9 +483,8 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      * @param queryParam    查询参数
      * @param totalCountHql 计数sql
      * @param pageParam     分页参数
-     *
-     * @return
      */
+    @Transactional(readOnly = true, noRollbackFor = Exception.class)
     public List queryBySQL(final String sql, final Map<String, Object> queryParam, final String totalCountHql,
                            final Page... pageParam) {
         return (List) getHibernateTemplate().execute((HibernateCallback) session -> {
@@ -499,6 +504,7 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      *
      * @param hql String
      */
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
     public Integer executeUpdateHql(final String hql) {
         return (Integer) getHibernateTemplate().execute((HibernateCallback) session -> {
             Query query = session.createQuery(hql);
@@ -507,6 +513,7 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
 
     }
 
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
     public Integer updateByHqlWithParams(final String hql, final Object... values) {
         return (Integer) getHibernateTemplate().execute((HibernateCallback) session -> {
             Query query = session.createQuery(hql);
@@ -524,9 +531,9 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      *
      * @param sql    待执行的sql
      * @param params 参数信息
-     *
      * @return 更新的条目数
      */
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
     public Integer executeUpdateSql(final String sql, final Map params) {
         return (Integer) getHibernateTemplate().execute((HibernateCallback) session -> {
             Query query = session.createSQLQuery(sql);
@@ -543,9 +550,9 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      *
      * @param hql    待执行的hql
      * @param params 查询参数
-     *
      * @return 更新的条目树
      */
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
     public Integer executeUpdateHql(final String hql, final Map params) {
         return (Integer) getHibernateTemplate().execute((HibernateCallback) session -> {
             Query query = session.createQuery(hql);
@@ -597,9 +604,9 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      * 根据属性查询记录个数
      *
      * @param properties 条件属性
-     *
      * @return 符合条件属性的条目个数
      */
+    @Transactional(readOnly = true, noRollbackFor = Exception.class)
     public Long findCountByProperties(final ConditionSet properties) {
 
         return (Long) getHibernateTemplate().execute((HibernateCallback) session -> {
@@ -622,8 +629,6 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      *
      * @param properties 条件参数
      * @param session    当前session
-     *
-     * @return
      */
     private Criteria convertProperties2Criteria(ConditionSet properties, Session session) {
         Criteria criteria = session.createCriteria(entityClass);
@@ -646,7 +651,6 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      *
      * @param propertyName 属性名
      * @param propValue    属性值
-     *
      * @return Criterion
      */
 
@@ -762,9 +766,9 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      *
      * @param propertyName 属性名
      * @param value        属性值
-     *
      * @return 删除的个数
      */
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
     public Integer deleteByProperty(String propertyName, Object value) {
         Map pv = new HashMap(1);
         pv.put(propertyName, value);
@@ -775,9 +779,9 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      * 根据属性的值批量删除
      *
      * @param props 属性参数
-     *
      * @return 删除的条目数
      */
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
     public Integer deleteByProperties(Map<String, Object> props) {
         // 构建HQL删除
         String className = entityClass.getSimpleName();
@@ -815,8 +819,8 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
      *
      * @param properties 属性名称数组，属性名称支持段式："属性名OPERATOR属性值",OPERATOR可以为"=,>,<",字符串类型可以带%查询，表示匹配任意
      * @param orderBy    按属性排序， 属性名：0|1，0降序，1升序
-     * @param pageBean
      */
+    @Transactional(readOnly = true, noRollbackFor = Exception.class)
     public List<E> findByCommonCondition(String[] properties, String[] orderBy, Page... pageBean) {
         String[] hqls = convertProps2Hql(properties, orderBy);
         return this.queryByHQL(hqls[0], pageBean.length > 0 ? hqls[1] : null, pageBean);
@@ -824,12 +828,8 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
 
     /**
      * 查询数量
-     *
-     * @param HSql
-     * @param values
-     *
-     * @return
      */
+    @Transactional(readOnly = true, noRollbackFor = Exception.class)
     public int findCount(String HSql, Object[] values) {
         return ((Long) getHibernateTemplate().iterate(HSql, values).next()).intValue();
     }
@@ -837,10 +837,9 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
     /**
      * 从session中移除
      *
-     * @param entity
-     *
      * @see HibernateOperations#evict(Object)
      */
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
     public void evict(E entity) {
         getHibernateTemplate().evict(entity);
     }
@@ -937,4 +936,7 @@ public abstract class AbstractBaseDao<E> implements IBaseDao<E> {
         return hibernateTemplate;
     }
 
+    public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
+        this.hibernateTemplate = hibernateTemplate;
+    }
 }

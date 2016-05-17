@@ -2,21 +2,19 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <!-- 加载资源文件-->
     <context:property-placeholder location="classpath:database.properties"/>
+    <tx:annotation-driven transaction-manager="markTransactionManager"/>
 
     <!-- Hibernate4 -->
     <bean id="sessionFactory"
           class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="packagesToScan">
-            <list>
-                <!-- 可以加多个包 -->
-                <value>com.markeveryday.model</value>
-            </list>
-        </property>
+        <property name="packagesToScan" value="com.markeveryday.model"/>
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">${hibernate.dialect}</prop>
@@ -45,5 +43,31 @@
     <bean id="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
         <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
+
+
+    <bean id="markTransactionManager"
+          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+<!--    <aop:config>
+        <aop:pointcut id="ServiceOperation"
+                      expression="(execution(* com.markeveryday.service.impl.*ServiceImpl.*(..)))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="ServiceOperation"/>
+    </aop:config>
+
+
+    <tx:advice id="txAdvice" transaction-manager="markTransactionManager">
+        <tx:attributes>
+            <tx:method name="find*" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="get*" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="create*" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="save*" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="update*" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="delete*" propagation="REQUIRED" read-only="false"/>
+        </tx:attributes>
+    </tx:advice>-->
+
+
 
 </beans>

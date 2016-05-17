@@ -1,5 +1,9 @@
 package com.markeveryday.model;
 
+import com.markeveryday.utils.JsonHelpler;
+
+import org.hibernate.annotations.ColumnDefault;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -91,13 +95,6 @@ public class Account {
 
     @Override
     public String toString() {
-        return "Account{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", enabled=" + enabled +
-                ", createTime=" + createTime +
-                ", modTime=" + modTime +
-                '}';
+        return JsonHelpler.toJsonString(this);
     }
 }

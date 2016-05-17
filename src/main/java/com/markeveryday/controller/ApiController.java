@@ -7,15 +7,20 @@ import org.springframework.security.core.userdetails.User;
 import com.markeveryday.bean.EnterpriseGroupUser;
 import com.markeveryday.bean.GroupUser;
 import com.markeveryday.model.Account;
+import com.markeveryday.model.Book;
 import com.markeveryday.model.Enterprise;
 import com.markeveryday.model.Group;
 import com.markeveryday.security.LoginHelper;
 import com.markeveryday.service.AccountService;
+import com.markeveryday.service.BookService;
 import com.markeveryday.service.EnterpriseService;
 import com.markeveryday.service.GroupService;
 import com.markeveryday.service.UserService;
+import com.markeveryday.utils.Constants;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,6 +48,9 @@ public class ApiController {
     private AccountService accountService;
     @Autowired
     private GroupService groupService;
+
+    @Autowired
+    private BookService bookService;
 
 
     /**
@@ -121,5 +129,25 @@ public class ApiController {
         return egu;
     }
 
+
+    @RequestMapping(value = "/books", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Book> getBooks() {
+        return bookService.findAll();
+    }
+
+    @RequestMapping(value = "/books/save", method = RequestMethod.POST)
+    @ResponseBody
+    public String saveBook(@RequestBody Book book) {
+        bookService.saveBook(book);
+        return Constants.RESPONSE_SUCCESS;
+    }
+
+    @RequestMapping(value = "/books/delete/{bookId}", method = RequestMethod.GET)
+    @ResponseBody
+    public String deleteBook(@PathVariable Long bookId) {
+        bookService.deleteById(bookId);
+        return Constants.RESPONSE_SUCCESS;
+    }
 
 }

@@ -24,10 +24,6 @@ public class MarkSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * 基于数据库的用户认证
-     *
-     * @param auth
-     *
-     * @throws Exception
      */
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
@@ -35,15 +31,14 @@ public class MarkSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * URL权限控制
+     * URL权限控制 disabled csrf // TODO enable csrf
      *
-     * @param http
-     *
-     * @throws Exception
+     * @see //docs.spring.io/spring-security/site/docs/current/reference/html/csrf.html#csrf-configure
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/admin/**").hasAuthority(AccountRole.ROLE_ADMIN.name())
                 .antMatchers("/app/**").hasAuthority(AccountRole.ROLE_USER.name())
