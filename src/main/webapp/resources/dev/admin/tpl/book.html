@@ -10,7 +10,8 @@
             </div>
         </div>
         <div class="col-lg-6">
-            <button type="button" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;&nbsp;添加图书
+            <button type="button" class="btn btn-success"
+            ng-click="bookCtrl.addBook()"><i class="fa fa-plus"></i>&nbsp;&nbsp;添加图书
             </button>
         </div>
 
@@ -32,12 +33,12 @@
             <tbody>
             <tr ng-repeat="book in bookCtrl.books track by book.id">
                 <td>{{::book.id}}</td>
-                <td>{{::book.name}}</td>
-                <td>{{::book.author}}</td>
-                <td>{{::book.summary}}</td>
+                <td>{{book.name}}</td>
+                <td>{{book.author}}</td>
+                <td>{{book.summary}}</td>
                 <td class="book-image"><img ng-src="{{book.coverImage}}"></td>
-                <td>{{::book.createTime}}</td>
-                <td>{{::book.modTime}}</td>
+                <td>{{book.createTime}}</td>
+                <td>{{book.modTime}}</td>
                 <td class="operations">
                     <div class="btn-group" uib-dropdown>
                         <button type="button" class="btn btn-primary"

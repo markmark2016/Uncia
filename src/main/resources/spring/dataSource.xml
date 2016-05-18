@@ -50,23 +50,6 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-<!--    <aop:config>
-        <aop:pointcut id="ServiceOperation"
-                      expression="(execution(* com.markeveryday.service.impl.*ServiceImpl.*(..)))"/>
-        <aop:advisor advice-ref="txAdvice" pointcut-ref="ServiceOperation"/>
-    </aop:config>
-
-
-    <tx:advice id="txAdvice" transaction-manager="markTransactionManager">
-        <tx:attributes>
-            <tx:method name="find*" propagation="REQUIRED" read-only="false"/>
-            <tx:method name="get*" propagation="REQUIRED" read-only="false"/>
-            <tx:method name="create*" propagation="REQUIRED" read-only="false"/>
-            <tx:method name="save*" propagation="REQUIRED" read-only="false"/>
-            <tx:method name="update*" propagation="REQUIRED" read-only="false"/>
-            <tx:method name="delete*" propagation="REQUIRED" read-only="false"/>
-        </tx:attributes>
-    </tx:advice>-->
 
 
 

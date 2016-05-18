@@ -1,9 +1,12 @@
 package com.markeveryday.controller;
 
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.markeveryday.bean.EnterpriseGroupUser;
 import com.markeveryday.bean.GroupUser;
 import com.markeveryday.model.Account;
@@ -17,18 +20,27 @@ import com.markeveryday.service.EnterpriseService;
 import com.markeveryday.service.GroupService;
 import com.markeveryday.service.UserService;
 import com.markeveryday.utils.Constants;
+import com.markeveryday.utils.EnvUtil;
+import com.markeveryday.utils.HttpClientUtil;
+import com.markeveryday.utils.JsonHelpler;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * API controller
@@ -48,7 +60,6 @@ public class ApiController {
     private AccountService accountService;
     @Autowired
     private GroupService groupService;
-
     @Autowired
     private BookService bookService;
 
@@ -130,24 +141,89 @@ public class ApiController {
     }
 
 
+    /**
+     * 获取所有图书列表
+     *
+     * @return 所有图书列表或者空
+     */
     @RequestMapping(value = "/books", method = RequestMethod.GET)
     @ResponseBody
     public List<Book> getBooks() {
         return bookService.findAll();
     }
 
-    @RequestMapping(value = "/books/save", method = RequestMethod.POST)
+
+    /**
+     * 通过调用豆瓣api获取查询图书信息
+     *
+     * @param query  查询字符
+     * @param limits 记录条目限制
+     * @return 图书列表
+     */
+    @RequestMapping(value = "/douban/books/search", method = RequestMethod.GET)
     @ResponseBody
-    public String saveBook(@RequestBody Book book) {
-        bookService.saveBook(book);
-        return Constants.RESPONSE_SUCCESS;
+    public List<Book> searchBookUsingDoubanApi(@RequestParam String query, @RequestParam Integer limits) {
+
+        List<Book> books = new ArrayList<>();
+
+        if (StringUtils.isEmpty(query)) {
+            return Collections.EMPTY_LIST;
+        }
+
+        limits = limits == null || limits <= 0 ? 10 : limits;
+
+        Map<String, String> params = new HashMap<>();
+        params.put("q", query);
+        params.put("count", limits.toString());
+
+        //String url = EnvUtil.getConfigValueByKey("douban.book.search.api");
+        String url = Constants.DOUBAN_BOOK_SEARCH_API;
+        if (StringUtils.isEmpty(url)) {
+            throw new IllegalStateException("豆瓣图书查询api未设置");
+        }
+
+        String response = HttpClientUtil.get(url, params);
+        if (StringUtils.isEmpty(response)) {
+            return Collections.EMPTY_LIST;
+        }
+
+        JsonNode booksNode = JsonHelpler.getJsonTree(response).get("books");
+        if (booksNode != null) {
+
+            Iterator<JsonNode> iterator = booksNode.elements();
+            while (iterator.hasNext()) {
+                JsonNode book = iterator.next();
+                String title = book.get("title").asText();
+                String imageUrl = book.get("image").asText();
+                String summary = book.get("summary").asText();
+
+                ArrayNode authorsNode = (ArrayNode) book.get("author");
+
+                StringBuilder stringBuilder = new StringBuilder();
+                Iterator<JsonNode> authorsIterator = authorsNode.elements();
+                while (authorsIterator.hasNext()) {
+                    stringBuilder.append(StringUtils.strip(authorsIterator.next().toString(), "\""));
+                    stringBuilder.append(" ");
+                }
+
+                if (StringUtils.isEmpty(title) || StringUtils.isEmpty(imageUrl) || StringUtils.isEmpty(summary)) {
+                    continue;
+                }
+                Book markBook = new Book();
+                markBook.setName(title);
+                markBook.setSummary(summary);
+                markBook.setDeleteStatus(false);
+                markBook.setCoverImage(imageUrl);
+                markBook.setCreateTime(new Date());
+                markBook.setModTime(new Date());
+                markBook.setAuthor(stringBuilder.toString());
+                books.add(markBook);
+            }
+            return books;
+        }
+
+        return Collections.EMPTY_LIST;
     }
 
-    @RequestMapping(value = "/books/delete/{bookId}", method = RequestMethod.GET)
-    @ResponseBody
-    public String deleteBook(@PathVariable Long bookId) {
-        bookService.deleteById(bookId);
-        return Constants.RESPONSE_SUCCESS;
-    }
 
 }

@@ -16,28 +16,36 @@ define(['app', 'constants'], function (app, constants) {
          */
         self.getUsers = function () {
             return $http.get(constants.api('api/users'))
-                .then(function(userData){
+                .then(function (userData) {
                     return userData.data;
                 });
         };
 
         self.getBooks = function () {
             return $http.get(constants.api('api/books'))
-                .then(function(booksData){
+                .then(function (booksData) {
                     return booksData.data;
                 });
         };
 
-        self.saveBook = function(book){
-            return $http.post(constants.api('api/books/save'), book)
-                .then(function(result){
+        self.saveBook = function (book) {
+            return $http.post(constants.api('admin/books/save'), book)
+                .then(function (result) {
                     return result.data;
                 })
         };
 
-        self.deleteBook = function(bookId){
-            return $http.get(constants.api('api/books/delete/'+bookId))
-                .then(function(result){
+        self.deleteBook = function (bookId) {
+            return $http.get(constants.api('admin/books/delete/' + bookId))
+                .then(function (result) {
+                    return result.data;
+                });
+        };
+
+        self.searchBooksInDouban = function (q, limits) {
+            return $http.get(
+                constants.api('api/douban/books/search?query=' + q + '&limits=' + limits))
+                .then(function (result) {
                     return result.data;
                 });
         }

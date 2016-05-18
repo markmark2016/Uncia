@@ -1,0 +1,47 @@
+<div class="modal-header">
+    <h3 class="modal-title">添加图书</h3>
+</div>
+<div class="modal-body">
+
+    <form class="form-inline">
+        <div class="form-group">
+            <label for="searchBookInput" class="sr-only">输入书名</label>
+            <input type="text" class="form-control" id="searchBookInput" placeholder="书名"
+                   ng-model="bookAddCtrl.query">
+        </div>
+        <button type="submit" class="btn btn-default" ng-click="bookAddCtrl.search()">在豆瓣中搜索
+        </button>
+    </form>
+    <div class="row list-book" ng-show="searchedBooks.length > 0">
+        <table class="table table-hover book-table">
+            <thead>
+            <tr>
+                <th>书名</th>
+                <th>作者</th>
+                <th>概述</th>
+                <th>封面</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="book in searchedBooks track by $index">
+                <td>{{book.name}}</td>
+                <td>{{book.author}}</td>
+                <td>{{book.summary}}</td>
+                <td class="book-image"><img ng-src="{{book.coverImage}}"></td>
+                <td class="operations">
+                    <button type="button" class="btn btn-primary"
+                            ng-click="bookAddCtrl.save(book)"><i class="fa fa-plus"></i>&nbsp;
+                        添加
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="$close()">取消</button>
+</div>
