@@ -7,17 +7,27 @@ import org.springframework.security.core.userdetails.User;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.markeveryday.bean.AccountRole;
+import com.markeveryday.bean.CommunityCategoryBean;
 import com.markeveryday.bean.EnterpriseGroupUser;
 import com.markeveryday.bean.GroupUser;
 import com.markeveryday.model.Account;
 import com.markeveryday.model.Book;
+import com.markeveryday.model.Category;
+import com.markeveryday.model.Community;
+import com.markeveryday.model.CommunityCategoryRel;
 import com.markeveryday.model.Enterprise;
 import com.markeveryday.model.Group;
+import com.markeveryday.model.Role;
 import com.markeveryday.security.LoginHelper;
 import com.markeveryday.service.AccountService;
 import com.markeveryday.service.BookService;
+import com.markeveryday.service.CategoryService;
+import com.markeveryday.service.CommunityCategoryRelService;
+import com.markeveryday.service.CommunityService;
 import com.markeveryday.service.EnterpriseService;
 import com.markeveryday.service.GroupService;
+import com.markeveryday.service.RoleService;
 import com.markeveryday.service.UserService;
 import com.markeveryday.utils.Constants;
 import com.markeveryday.utils.EnvUtil;
@@ -26,6 +36,7 @@ import com.markeveryday.utils.JsonHelpler;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,6 +73,14 @@ public class ApiController {
     private GroupService groupService;
     @Autowired
     private BookService bookService;
+    @Autowired
+    private RoleService roleService;
+    @Autowired
+    private CommunityService communityService;
+    @Autowired
+    private CommunityCategoryRelService communityCategoryRelService;
+    @Autowired
+    private CategoryService categoryService;
 
 
     /**
@@ -74,6 +93,16 @@ public class ApiController {
         Enterprise enterprise = getLoginEnterprise();
         if (enterprise == null) {
             return Collections.emptyList();
+        }
+        Long accountId = enterprise.getAccountId();
+        List<Role> roles = roleService.getRolesByAccountId(accountId);
+        if (CollectionUtils.isEmpty(roles)) {
+            return null;
+        }
+        for (Role r : roles) {
+            if (AccountRole.ROLE_SUPER_ADMIN.equals(r.getRole())) {
+                return userService.getAllUsers();
+            }
         }
         return userService.findByEnterpriseId(enterprise.getId());
 
@@ -138,6 +167,32 @@ public class ApiController {
         egu.setEnterprise(enterprise);
         egu.setGroupUsers(groupUsers);
         return egu;
+    }
+
+    /**
+     * 按照昵称搜索用户
+     *
+     * @see #getUsersByEnterprise()
+     */
+
+    @RequestMapping(value = "/users/search", method = RequestMethod.GET)
+    @ResponseBody
+    public List<com.markeveryday.model.User> searchUsers(@RequestParam String query) {
+
+        List<com.markeveryday.model.User> users = getUsersByEnterprise();
+        List<com.markeveryday.model.User> resultUsers = new ArrayList<>();
+        if (CollectionUtils.isEmpty(users)) {
+            return null;
+        }
+        for (com.markeveryday.model.User u : users) {
+            String nickName = u.getNickname();
+            if (StringUtils.isNotEmpty(nickName)) {
+                if (StringUtils.contains(nickName, query)) {
+                    resultUsers.add(u);
+                }
+            }
+        }
+        return resultUsers;
     }
 
 
@@ -223,6 +278,36 @@ public class ApiController {
         }
 
         return Collections.EMPTY_LIST;
+    }
+
+    @RequestMapping(value = "/communities", method = RequestMethod.GET)
+    @ResponseBody
+    public List<CommunityCategoryBean> getCommunities() {
+
+        List<Community> communities = communityService.getAllCommunities();
+        if (CollectionUtils.isEmpty(communities)) {
+            return null;
+        }
+
+        List<CommunityCategoryBean> communityCategoryBeens = new ArrayList<>();
+        for (Community c : communities) {
+            CommunityCategoryRel rel = communityCategoryRelService.getByCommunityId(c.getId());
+            if (rel != null) {
+                Category category = categoryService.findById(rel.getCategoryId());
+                if (category != null) {
+                    communityCategoryBeens.add(new CommunityCategoryBean(c, category));
+                }
+            }
+
+        }
+        return communityCategoryBeens;
+    }
+
+
+    @RequestMapping(value = "/categories", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Category> getCategories() {
+        return categoryService.getAllCategories();
     }
 
 

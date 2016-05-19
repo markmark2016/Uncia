@@ -21,6 +21,20 @@ define(['app', 'constants'], function (app, constants) {
                 });
         };
 
+        self.searchUsers = function (query) {
+            return $http.get(constants.api('api/users/search?query=' + query))
+                .then(function (userData) {
+                    return userData.data;
+                });
+        };
+
+        self.getEnterpriseUsers = function () {
+            return $http.get(constants.api('api/enterprise/users'))
+                .then(function (userData) {
+                    return userData.data;
+                });
+        };
+
         self.getBooks = function () {
             return $http.get(constants.api('api/books'))
                 .then(function (booksData) {
@@ -48,7 +62,43 @@ define(['app', 'constants'], function (app, constants) {
                 .then(function (result) {
                     return result.data;
                 });
-        }
+        };
+
+        self.getCommunities = function () {
+            return $http.get(
+                constants.api('api/communities'))
+                .then(function (result) {
+                    return result.data;
+                });
+        };
+
+        self.getCategories = function () {
+            return $http.get(
+                constants.api('api/categories'))
+                .then(function (result) {
+                    return result.data;
+                });
+        };
+
+        self.saveCommunity = function (communityCategoryBean) {
+            return $http.post(
+                constants.api('admin/community/save'), communityCategoryBean)
+                .then(function (result) {
+                    return result.data;
+                });
+        };
+
+        self.deleteCommunity = function (communityId) {
+            return $http.get(
+                constants.api('admin/community/delete/'+communityId))
+                .then(function (result) {
+                    return result.data;
+                });
+        };
+
+        self.getCategoryById = function (CommunityId) {
+
+        };
 
     }
 

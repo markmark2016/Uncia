@@ -58,7 +58,7 @@ define(['app', 'constants', 'angular'], function (app, constants, angular) {
                     controller: function ($scope) {
 
                         this.query = "";
-                        $scope.searchedBooks = ['helo'];
+                        $scope.searchedBooks = [];
 
                         this.search = function () {
                             adminDataService.searchBooksInDouban(this.query, 1)

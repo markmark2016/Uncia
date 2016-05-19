@@ -44,6 +44,8 @@ public class User {
     private String unionid;
     @Column(name = "HEAD_IMG_URL")
     private String headImageUrl;
+    @Column(name = "ENTERPRISE_ID")
+    private Long enterpriseId;
     @Column(name = "GROUPID")
     private Long groupid;
     @Column(name = "REMARK")
@@ -184,6 +186,14 @@ public class User {
 
     public void setModTime(Date modTime) {
         this.modTime = modTime;
+    }
+
+    public Long getEnterpriseId() {
+        return enterpriseId;
+    }
+
+    public void setEnterpriseId(Long enterpriseId) {
+        this.enterpriseId = enterpriseId;
     }
 
     @Override

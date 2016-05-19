@@ -1,3 +1,62 @@
-<div>
-    用户管理页面
+<div class="main-content-wrapper">
+    <div class="row search-or-add">
+
+        <div class="col-lg-6">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="输入用户昵称搜索" required
+                       ng-model="usersCtrl.query">
+                 <span class="input-group-btn">
+                     <button class="btn btn-primary" type="button"
+                             ng-click="usersCtrl.searchUsers()">搜索</button>
+                 </span>
+            </div>
+        </div>
+
+    </div>
+    <div class="row list-users">
+        <table class="table table-hover admin-info-table">
+            <thead>
+            <tr>
+                <th>用户ID</th>
+                <th>昵称</th>
+                <th>性别</th>
+                <th>头像</th>
+                <th>省份</th>
+                <th>城市</th>
+                <th>注册时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="user in usersCtrl.users track by user.id">
+                <td>{{::user.id}}</td>
+                <td>{{user.nickname}}</td>
+                <td>{{user.sex === 1 ? '男': '女'}}</td>
+                <td class="user-head-image"><img ng-src="{{user.headImageUrl}}"></td>
+                <td>{{user.province}}</td>
+                <td>{{user.city}}</td>
+                <td>{{user.createTime}}</td>
+
+                <!--<td class="operations">
+                    <div class="btn-group" uib-dropdown>
+                        <button type="button" class="btn btn-primary"
+                                uib-dropdown-toggle ng-disabled="disabled">
+                            <i class="fa fa-md fa-cog"></i>操作 <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu book-operations" uib-dropdown-menu role="menu"
+                            aria-labelledby="single-button">
+                            <li role="menuitem"><a href=""
+                                                   ng-click="bookCtrl.editBook(book)">编辑</a>
+                            </li>
+                            <li role="menuitem"><a href=""
+                                                   ng-click="bookCtrl.deleteBook(book.id)">删除</a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>-->
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
 </div>

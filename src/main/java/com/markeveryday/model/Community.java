@@ -31,8 +31,8 @@ public class Community {
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @Column(name = "IMAGE")
-    private byte[] image;
+    @Column(name = "IMAGE_ID")
+    private Long imageId;
 
     @Column(name = "SLOGAN")
     private String slogan;
@@ -73,12 +73,12 @@ public class Community {
         this.description = description;
     }
 
-    public byte[] getImage() {
-        return image;
+    public Long getImageId() {
+        return imageId;
     }
 
-    public void setImage(byte[] image) {
-        this.image = image;
+    public void setImageId(Long imageId) {
+        this.imageId = imageId;
     }
 
     public String getSlogan() {

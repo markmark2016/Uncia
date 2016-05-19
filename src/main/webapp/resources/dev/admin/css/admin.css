@@ -150,32 +150,38 @@
     }
 }
 
+
+
+
+.admin-info-table > tbody > tr > td,
+.admin-info-table > tbody > tr > th,
+.admin-info-table> tfoot > tr > td,
+.admin-info-table > tfoot > tr > th,
+.admin-info-table > thead > tr > td,
+.admin-info-table > thead > tr > th {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.admin-info-table > thead > tr {
+    background-color: #eee;
+    border-bottom: none;
+}
+
 /*图书管理*/
 .row.search-or-add .col-lg-6 {
     margin-left: -15px;
 }
+
 .row.list-book {
     margin-top: 20px;
-}
-
-.book-table > tbody > tr > td,
-.book-table > tbody > tr > th,
-.book-table > tfoot > tr > td,
-.book-table > tfoot > tr > th,
-.book-table > thead > tr > td,
-.book-table > thead > tr > th {
-    vertical-align: middle;
-    text-align: center;
-}
-.book-table > thead > tr {
-    background-color: #eee;
-    border-bottom: none;
 }
 
 .book-image > img {
     width: 60px;
     height: 100px;
 }
+
 .operations .fa-cog {
     padding-right: 5px;
 }
@@ -184,4 +190,13 @@
     top: 100%;
     right: 0 !important;
     left: inherit;
+}
+
+/*用户管理*/
+.row.list-users {
+    margin-top: 20px;
+}
+.user-head-image > img {
+    width: 50px;
+    height: 50px;
 }

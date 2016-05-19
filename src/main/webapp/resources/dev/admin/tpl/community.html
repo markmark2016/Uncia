@@ -1,44 +1,32 @@
 <div class="main-content-wrapper">
     <div class="row search-or-add">
-
-        <!--<div class="col-lg-6">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="输入书名搜索">
-                 <span class="input-group-btn">
-                     <button class="btn btn-default" type="button">搜索</button>
-                 </span>
-            </div>
-        </div>-->
         <div class="col-lg-6">
             <button type="button" class="btn btn-success"
-            ng-click="bookCtrl.addBook()"><i class="fa fa-plus"></i>&nbsp;&nbsp;添加图书
+                    ng-click="communityCtrl.addCommunity()"><i class="fa fa-plus"></i>&nbsp;&nbsp;新建社群
             </button>
         </div>
-
     </div>
     <div class="row list-book">
         <table class="table table-hover admin-info-table">
             <thead>
             <tr>
-                <th>图书ID</th>
-                <th>书名</th>
-                <th>作者</th>
-                <th>概述</th>
-                <th>封面</th>
-                <th>添加时间</th>
-                <th>修改时间</th>
+                <th>社群名称</th>
+                <th>简介</th>
+                <th>阅读口号</th>
+                <th>logo</th>
+                <th>类别</th>
+                <th>创建时间</th>
                 <th>操作</th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="book in bookCtrl.books track by book.id">
-                <td>{{::book.id}}</td>
-                <td>{{book.name}}</td>
-                <td>{{book.author}}</td>
-                <td>{{book.summary}}</td>
-                <td class="book-image"><img ng-src="{{book.coverImage}}"></td>
-                <td>{{book.createTime}}</td>
-                <td>{{book.modTime}}</td>
+            <tr ng-repeat="ccBean in communityCtrl.communityCategoryBean track by $index">
+                <td>{{ccBean.community.name}}</td>
+                <td>{{ccBean.community.description}}</td>
+                <td>{{ccBean.community.slogan}}</td>
+                <td class="community-image"><img ng-src="{{ccBean.community.image}}"></td>
+                <td>{{ccBean.category.name}}</td>
+                <td>{{ccBean.community.createTime}}</td>
                 <td class="operations">
                     <div class="btn-group" uib-dropdown>
                         <button type="button" class="btn btn-primary"
@@ -48,10 +36,10 @@
                         <ul class="dropdown-menu book-operations" uib-dropdown-menu role="menu"
                             aria-labelledby="single-button">
                             <li role="menuitem"><a href=""
-                                                   ng-click="bookCtrl.editBook(book)">编辑</a>
+                                                   ng-click="communityCtrl.editCommunity(ccBean)">编辑</a>
                             </li>
                             <li role="menuitem"><a href=""
-                                                   ng-click="bookCtrl.deleteBook(book.id)">删除</a>
+                                                   ng-click="communityCtrl.deleteCommunity(ccBean.community.id)">删除</a>
                             </li>
                         </ul>
                     </div>
@@ -60,6 +48,5 @@
             </tbody>
         </table>
     </div>
-
 
 </div>

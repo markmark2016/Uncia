@@ -22,7 +22,8 @@ require.config({
                        'angular-sanitize': 'common/lib/angular-sanitize/js/angular-sanitize.min',
                        'angular-bootstrap': 'common/lib/angular-bootstrap/js/ui-bootstrap-tpls.min',
                        'clipboard': 'common/lib/clipboard/js/clipboard.min',
-                       'jquery': 'common/lib/jquery/js/jquery.min'
+                       'jquery': 'common/lib/jquery/js/jquery.min',
+                       'ng-file-upload':'common/lib/ng-file-upload/js/ng-file-upload.all.min'
                    },
                    shim: {
                        'angular': {

@@ -12,6 +12,7 @@ define(
         'angular-resource',
         'angular-animate',
         'angular-bootstrap',
+        'ng-file-upload',
         'clipboard',
         'app',
         'router',

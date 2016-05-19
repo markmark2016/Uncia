@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import com.markeveryday.commons.db.ConditionAndSet;
@@ -27,6 +28,7 @@ public class BookServiceImpl implements BookService {
     /**
      * 保存或者更新一本书
      */
+    @Transactional()
     @Override
     public void saveBook(Book book) {
         Assert.notNull(book, "待保存的book不能为null.");

@@ -7,6 +7,8 @@ define(
     [
         'admin/js/controllers/admin-controller',
         'admin/js/controllers/admin-book-controller',
+        'admin/js/controllers/admin-users-controller',
+        'admin/js/controllers/admin-community-controller',
         'markmark/js/controllers/markmark-controller'
     ], function () {
     });

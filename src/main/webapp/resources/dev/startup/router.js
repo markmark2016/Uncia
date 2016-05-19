@@ -27,8 +27,14 @@ define(
                 .state('admin.user', {
                     url: 'user',
                     templateUrl: constants.resource('/admin/tpl/users.html'),
-                    controller: 'AdminUserController',
-                    controllerAs: 'aCtrl'
+                    controller: 'AdminUsersController',
+                    controllerAs: 'usersCtrl'
+                })
+                .state('admin.community', {
+                    url: 'community',
+                    templateUrl: constants.resource('/admin/tpl/community.html'),
+                    controller: 'AdminCommunityController',
+                    controllerAs: 'communityCtrl'
                 })
                 .state('admin.remark', {
                     url: 'remark',

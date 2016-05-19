@@ -29,7 +29,7 @@ public class CommunityCategoryRel {
     private Long communityId;
 
     @Column(name = "CATEGORY_ID")
-    private Boolean categoryId;
+    private Long categoryId;
 
 
     @Column(name = "DELETE_STATUS")
@@ -61,11 +61,11 @@ public class CommunityCategoryRel {
         this.communityId = communityId;
     }
 
-    public Boolean getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Boolean categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 

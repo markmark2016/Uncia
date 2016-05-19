@@ -17,7 +17,7 @@ import javax.persistence.Table;
  * @author liming
  */
 @Entity
-@Table(name = "T_COMMUNITY")
+@Table(name = "T_CATEGORY")
 public class Category {
 
     @Id
