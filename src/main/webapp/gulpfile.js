@@ -59,9 +59,7 @@ gulp.task('build_lib', function () {
 
     gulp.src('./bower_components/requirejs/require.js')
         .pipe(gulp.dest('./resources/dev/common/lib/requirejs/js/'));
-
-    gulp.src('./bower_components/ng-file-upload/ng-file-upload.all.min.js')
-     .pipe(gulp.dest('./resources/dev/common/lib/ng-file-upload/js/'));
+    
 
 });
 

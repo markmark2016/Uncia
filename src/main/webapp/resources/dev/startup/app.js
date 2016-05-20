@@ -4,9 +4,9 @@
  * @author liming
  */
 
-define(['angular', 'angular-ui-router', 'angular-bootstrap','ng-file-upload'], function (angular) {
+define(['angular', 'angular-ui-router', 'angular-bootstrap'], function (angular) {
     'use strict';
-    angular.module('app', ['ui.router', 'ui.bootstrap','ngFileUpload'])
+    angular.module('app', ['ui.router', 'ui.bootstrap'])
         .factory('mark403Interceptor', ['$q', function ($q) {
             return {
                 responseError: function (rejection) {

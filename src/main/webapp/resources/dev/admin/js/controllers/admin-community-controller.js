@@ -37,7 +37,7 @@ define(['app', 'constants', 'angular'], function (app, constants, angular) {
                                 $scope.categories = categoriesData;
                             });
 
-                        this.save = function () {
+                       /* this.save = function () {
                             adminDataService.saveCommunity($scope.communityCategoryBean)
                                 .then(function (result) {
                                     if (result === 'SUCCESS') {
@@ -50,7 +50,7 @@ define(['app', 'constants', 'angular'], function (app, constants, angular) {
                                         self.cancel();
                                     }
                                 })
-                        };
+                        };*/
 
                         $scope.$watch(function () {
                             return $scope.currentCategory;
@@ -81,11 +81,11 @@ define(['app', 'constants', 'angular'], function (app, constants, angular) {
 
                         $scope.communityCategoryBean = {
                             community: {
-                                id: null,
+                                id: 0,
                                 name: '',
                                 slogan: '',
                                 description: '',
-                                image: null,
+                                imageId: 0,
                                 deleteStatus: false
                             },
                             category: {

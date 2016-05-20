@@ -25,8 +25,7 @@
     "bootstrap": "^3.3.2",
     "clipboard": "~1.5.2",
     "font-awesome": "^4.2.0",
-    "requirejs": "^2.1.0",
-    "ng-file-upload": "^12.0.4"
+    "requirejs": "^2.1.0"
   },
   "exportsOverride": {
     "bootstrap": {

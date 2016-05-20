@@ -2,12 +2,16 @@
     <h3 class="modal-title">新建社群</h3>
 </div>
 <div class="modal-body">
-    <form class="form-horizontal" name="addCommunityForm">
+    <form class="form-horizontal" method="POST" enctype="multipart/form-data"
+          action="/admin/community/save" name="addCommunityForm">
         <div class="form-group">
             <label for="communityNameInput" class="col-sm-2 control-label">社群名</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="communityNameInput" placeholder="社群名"
+                <input type="text" class="form-control" id="communityNameInput" name="name"
+                       placeholder="社群名"
                        ng-model="communityCategoryBean.community.name" required>
+                <input type="hidden" name="communityId"
+                       ng-value="communityCategoryBean.community.id">
             </div>
         </div>
         <div class="form-group">
@@ -17,12 +21,13 @@
                         ng-options="category.name for category in categories"
                         ng-model="currentCategory">
                 </select>
+                <input type="hidden" name="categoryId" ng-value="currentCategory.id">
             </div>
         </div>
         <div class="form-group">
             <label for="summaryTextArea" class="col-sm-2 control-label">社群简介</label>
             <div class="col-sm-10">
-                <textarea id="summaryTextArea" class="form-control"
+                <textarea id="summaryTextArea" class="form-control" name="description"
                           ng-model="communityCategoryBean.community.description" required
                           placeholder="输入对社群的简介">
 
@@ -33,7 +38,7 @@
         <div class="form-group">
             <label for="sloganInput" class="col-sm-2 control-label">阅读口号</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="sloganInput"
+                <input type="text" class="form-control" id="sloganInput" name="slogan"
                        placeholder="阅读口号" ng-model="communityCategoryBean.community.slogan"
                        required>
             </div>
@@ -42,18 +47,22 @@
         <div class="form-group">
             <label for="communityImageInput" class="col-sm-2 control-label">社群图片</label>
             <div class="col-sm-10">
-                <input type="file" id="communityImageInput"
-                       placeholder="社群图片"
-                       required>
+                <input type="file" name="file" id="communityImageInput"><br/>
+                <br/>
+                <input type="hidden" name="imageId"
+                       ng-value="communityCategoryBean.community.imageId"
+                       accept="image/*">
             </div>
+
         </div>
 
-
+        <button class="btn btn-success" type="submit" ng-disabled="addCommunityForm.$invalid">保存
+        </button>
     </form>
+
 </div>
 <div class="modal-footer">
-    <button class="btn btn-success" type="button" ng-disabled="addCommunityForm.$invalid"
-            ng-click="communityAddCtrl.save()">保存
+    <button class="btn btn-success" type="submit" ng-disabled="addCommunityForm.$invalid">保存
     </button>
     <button class="btn btn-primary" type="button" ng-click="$close()">取消</button>
 </div>
