@@ -18,7 +18,7 @@
             <label for="communityCategorySelect" class="col-sm-2 control-label">社群类别</label>
             <div class="col-sm-10">
                 <select required id="communityCategorySelect"
-                        ng-options="category.name for category in categories"
+                        ng-options="category.name for category in categories track by category.id"
                         ng-model="currentCategory">
                 </select>
                 <input type="hidden" name="categoryId" ng-value="currentCategory.id">
@@ -47,22 +47,18 @@
         <div class="form-group">
             <label for="communityImageInput" class="col-sm-2 control-label">社群图片</label>
             <div class="col-sm-10">
-                <input type="file" name="file" id="communityImageInput"><br/>
+                <input type="file" name="file" id="communityImageInput" accept="image/*"
+                       class="community-input-file"
+                       file-model="communityImageFile" ng-required="!communityImageFile"><br/>
                 <br/>
-                <input type="hidden" name="imageId"
-                       ng-value="communityCategoryBean.community.imageId"
-                       accept="image/*">
             </div>
-
         </div>
-
-        <button class="btn btn-success" type="submit" ng-disabled="addCommunityForm.$invalid">保存
-        </button>
     </form>
 
 </div>
 <div class="modal-footer">
-    <button class="btn btn-success" type="submit" ng-disabled="addCommunityForm.$invalid">保存
+    <button class="btn btn-success" type="submit" ng-disabled="addCommunityForm.$invalid"
+    ng-click="communityAddCtrl.save()">保存
     </button>
     <button class="btn btn-primary" type="button" ng-click="$close()">取消</button>
 </div>

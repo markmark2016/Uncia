@@ -3,15 +3,20 @@
 </div>
 <div class="modal-body">
 
-    <form class="form-inline">
-        <div class="form-group">
-            <label for="searchBookInput" class="sr-only">输入书名</label>
-            <input type="text" class="form-control" id="searchBookInput" placeholder="书名"
-                   ng-model="bookAddCtrl.query">
+    <div class="row search-or-add">
+        <div class="col-lg-6">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="输入书名" required
+                       ng-model="bookAddCtrl.query">
+                 <span class="input-group-btn">
+                     <button type="button" class="btn btn-primary" ng-click="bookAddCtrl.search()">在豆瓣中搜索
+                     </button>
+                 </span>
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary" ng-click="bookAddCtrl.search()">在豆瓣中搜索
-        </button>
-    </form>
+
+    </div>
+
     <div class="row list-book" ng-show="searchedBooks.length > 0">
         <table class="table table-hover book-table">
             <thead>

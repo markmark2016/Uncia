@@ -150,12 +150,9 @@
     }
 }
 
-
-
-
 .admin-info-table > tbody > tr > td,
 .admin-info-table > tbody > tr > th,
-.admin-info-table> tfoot > tr > td,
+.admin-info-table > tfoot > tr > td,
 .admin-info-table > tfoot > tr > th,
 .admin-info-table > thead > tr > td,
 .admin-info-table > thead > tr > th {
@@ -196,7 +193,21 @@
 .row.list-users {
     margin-top: 20px;
 }
+
 .user-head-image > img {
     width: 50px;
     height: 50px;
+}
+
+/*社群管理*/
+.row.list-communities {
+    margin-top: 20px;
+}
+
+.community-image > img {
+    width: 50px;
+}
+
+form[name="editCommunityForm"] .preview-image > img {
+    width: 300px;
 }

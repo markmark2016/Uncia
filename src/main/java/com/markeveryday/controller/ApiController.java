@@ -231,7 +231,7 @@ public class ApiController {
         params.put("q", query);
         params.put("count", limits.toString());
 
-        //String url = EnvUtil.getConfigValueByKey("douban.book.search.api");
+        //String url = EnvUtil.getConfigValueByKey("douban.books.search.api");
         String url = Constants.DOUBAN_BOOK_SEARCH_API;
         if (StringUtils.isEmpty(url)) {
             throw new IllegalStateException("豆瓣图书查询api未设置");

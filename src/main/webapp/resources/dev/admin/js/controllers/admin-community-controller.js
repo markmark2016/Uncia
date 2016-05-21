@@ -5,9 +5,10 @@
 define(['app', 'constants', 'angular'], function (app, constants, angular) {
 
     return app.controller('AdminCommunityController',
-                          ['AdminDataService', '$uibModal', AdminCommunityController]);
+                          ['AdminDataService', 'AdminUploadService', '$uibModal',
+                           AdminCommunityController]);
 
-    function AdminCommunityController(adminDataService, $uibModal) {
+    function AdminCommunityController(adminDataService, uploadService, $uibModal) {
 
         var self = this;
 
@@ -27,18 +28,28 @@ define(['app', 'constants', 'angular'], function (app, constants, angular) {
                     controller: function ($scope) {
 
                         $scope.communityCategoryBean = communityCategoryBean;
-
                         $scope.currentCategory = $scope.communityCategoryBean.category;
-
                         $scope.categories = [];
+                        $scope.communityImageFile = null;
 
                         adminDataService.getCategories()
                             .then(function (categoriesData) {
                                 $scope.categories = categoriesData;
                             });
 
-                       /* this.save = function () {
-                            adminDataService.saveCommunity($scope.communityCategoryBean)
+                        this.save = function () {
+
+                            var param = {
+                                communityId: $scope.communityCategoryBean.community.id,
+                                name: $scope.communityCategoryBean.community.name,
+                                description: $scope.communityCategoryBean.community.description,
+                                slogan: $scope.communityCategoryBean.community.slogan,
+                                categoryId: $scope.currentCategory.id
+                            };
+
+                            uploadService.uploadFileToUrl(param,
+                                                          $scope.communityImageFile,
+                                                          'admin/community/save')
                                 .then(function (result) {
                                     if (result === 'SUCCESS') {
                                         adminDataService.getCommunities()
@@ -49,18 +60,16 @@ define(['app', 'constants', 'angular'], function (app, constants, angular) {
                                             );
                                         self.cancel();
                                     }
-                                })
-                        };*/
+                                });
+                        };
 
                         $scope.$watch(function () {
                             return $scope.currentCategory;
                         }, function (newVal) {
-
                             if ($scope.communityCategoryBean) {
                                 $scope.communityCategoryBean.category = newVal;
                             }
                         });
-
                         return this;
                     },
                     controllerAs: 'communityEditCtrl',
@@ -88,13 +97,11 @@ define(['app', 'constants', 'angular'], function (app, constants, angular) {
                                 imageId: 0,
                                 deleteStatus: false
                             },
-                            category: {
-                            }
+                            category: {}
                         };
-
-                        $scope.currentCategory = $scope.communityCategoryBean.category;
-
                         $scope.categories = [];
+                        $scope.currentCategory = $scope.communityCategoryBean.category;
+                        $scope.communityImageFile = null;
 
                         adminDataService.getCategories()
                             .then(function (categoriesData) {
@@ -102,7 +109,18 @@ define(['app', 'constants', 'angular'], function (app, constants, angular) {
                             });
 
                         this.save = function () {
-                            adminDataService.saveCommunity($scope.communityCategoryBean)
+
+                            var param = {
+                                communityId: $scope.communityCategoryBean.community.id,
+                                name: $scope.communityCategoryBean.community.name,
+                                description: $scope.communityCategoryBean.community.description,
+                                slogan: $scope.communityCategoryBean.community.slogan,
+                                categoryId: $scope.currentCategory.id
+                            };
+
+                            uploadService.uploadFileToUrl(param,
+                                                          $scope.communityImageFile,
+                                                          'admin/community/save')
                                 .then(function (result) {
                                     if (result === 'SUCCESS') {
                                         adminDataService.getCommunities()
@@ -113,13 +131,12 @@ define(['app', 'constants', 'angular'], function (app, constants, angular) {
                                             );
                                         self.cancel();
                                     }
-                                })
+                                });
                         };
 
                         $scope.$watch(function () {
                             return $scope.currentCategory;
                         }, function (newVal) {
-
                             if ($scope.communityCategoryBean) {
                                 $scope.communityCategoryBean.category = newVal;
                             }

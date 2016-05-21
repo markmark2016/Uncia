@@ -5,7 +5,6 @@ import com.markeveryday.model.Book;
 import com.markeveryday.model.Category;
 import com.markeveryday.model.Community;
 import com.markeveryday.model.CommunityCategoryRel;
-import com.markeveryday.model.Image;
 import com.markeveryday.service.AccountService;
 import com.markeveryday.service.BookService;
 import com.markeveryday.service.CategoryService;
@@ -13,19 +12,16 @@ import com.markeveryday.service.CommunityCategoryRelService;
 import com.markeveryday.service.CommunityService;
 import com.markeveryday.service.EnterpriseService;
 import com.markeveryday.service.GroupService;
-import com.markeveryday.service.ImageService;
 import com.markeveryday.service.RoleService;
 import com.markeveryday.service.UserService;
 import com.markeveryday.utils.Constants;
+import com.markeveryday.utils.QiNiuUtil;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,13 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Date;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.Path;
 
 /**
  * 管理controller
@@ -72,8 +62,6 @@ public class AdminController {
     private CommunityCategoryRelService communityCategoryRelService;
     @Autowired
     private CategoryService categoryService;
-    @Autowired
-    private ImageService imageService;
 
     @RequestMapping("/")
     public String index() {
@@ -116,11 +104,8 @@ public class AdminController {
                                 @RequestParam String description,
                                 @RequestParam String slogan,
                                 @RequestParam Long categoryId,
-                                @RequestParam Long imageId,
-                                @RequestParam MultipartFile file) {
+                                @RequestParam(required = false) MultipartFile file) {
 
-
-        Long savedImageId = uploadImage(imageId, file);
 
         Community community;
 
@@ -138,15 +123,25 @@ public class AdminController {
         community.setDeleteStatus(false);
         community.setDescription(description);
         community.setModTime(new Date());
-        if (savedImageId != null && savedImageId != 0L) {
-            community.setImageId(savedImageId);
+
+        if(StringUtils.isEmpty(community.getImage())){
+            if(file != null){
+                String imageUrl = QiNiuUtil.upload(file);
+                if (StringUtils.isNotEmpty(imageUrl)) {
+                    community.setImage(imageUrl);
+                } else {
+                    community.setImage("DEFAULT");
+                }
+            }else {
+                community.setImage("DEFAULT");
+            }
+
         }
 
         Category category = categoryService.findById(categoryId);
         if (category == null) {
             throw new IllegalStateException("Category not found in database, categoryId:" + categoryId);
         }
-
 
         CommunityCategoryBean ccBean = new CommunityCategoryBean();
         ccBean.setCommunity(community);
@@ -199,74 +194,6 @@ public class AdminController {
         communityCategoryRelService.save(rel);
 
         return Constants.RESPONSE_SUCCESS;
-    }
-
-    private Long uploadImage(Long imageId, MultipartFile file) {
-        if (file.isEmpty()) {
-            return null;
-        }
-        String contentType = file.getContentType();
-        long size = file.getSize();
-        File realFile = transferToFile(file);
-        if (imageId == null) {
-            imageId = 0L;
-        }
-        Long savedImageId = null;
-
-        try {
-            logger.info("Uploading file, name:{}, size:{}", realFile.getName(), size);
-            savedImageId = imageService.saveImageFile(imageId, contentType, realFile);
-
-        } catch (Exception e) {
-            logger.error("Upload file:{} error:{}", realFile.getAbsolutePath(), e);
-        }
-        return savedImageId;
-    }
-
-
-    @RequestMapping(value = "/image/download/{imageId}", method = RequestMethod.GET)
-    public void download(@RequestParam("projectId") Long imageId, HttpServletResponse response) {
-        if (imageId == null) {
-            return;
-        }
-        writeToClient(imageId, response);
-    }
-
-    private void writeToClient(Long imageId,
-                               HttpServletResponse response) {
-        OutputStream outputStream = null;
-        try {
-
-            Image image = imageService.findById(imageId);
-
-            if (image != null) {
-                response.reset();
-                response.setContentType(image.getContentType());
-                response.setContentLength(image.getLength().intValue());
-                outputStream = response.getOutputStream();
-                FileCopyUtils.copy(image.getImage(), outputStream);
-                response.flushBuffer();
-            }
-        } catch (Exception e) {
-            logger.error("Download doucment error, imageId:{}, error:{}", imageId, e);
-        } finally {
-            try {
-                if (outputStream != null) {
-                    outputStream.close();
-                }
-            } catch (IOException e) {
-                logger.error("Closing outputStream error:{}", e);
-            }
-        }
-    }
-
-    private File transferToFile(MultipartFile mpFile) {
-        File file = new File(mpFile.getOriginalFilename());
-        try {
-            mpFile.transferTo(file);
-        } catch (IOException e) {
-        }
-        return file;
     }
 
 

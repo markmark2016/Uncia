@@ -19,11 +19,9 @@ import java.util.Properties;
  *
  * @author liming
  */
-@Component
 public class EnvUtil {
 
     private static Properties props = null;
-
 
     /**
      * 解析property的placeholder工具
@@ -173,5 +171,13 @@ public class EnvUtil {
         return defaultLocale;
     }
 
+
+    public void setProps(List<Properties> props) {
+        Properties properties = new Properties();
+        for (Properties p : props) {
+            properties.putAll(p);
+        }
+        EnvUtil.props = properties;
+    }
 
 }

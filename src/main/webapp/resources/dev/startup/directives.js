@@ -3,8 +3,8 @@
  *
  * @author liming16
  */
-define([],
-    function () {
-        
+define(
+    [
+        'admin/js/directives/file-upload-directive'
+    ], function () {
     });
-

@@ -4,9 +4,14 @@
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!--<util:properties id="markmarkProperties" location="classpath:markmark.properties"/>-->
+    <!--<util:properties id="databaseProperties" location="classpath:database.properties"/>-->
+    <context:property-placeholder location="classpath:*.properties"/>
 
     <context:component-scan base-package="com.markeveryday"/>
     <context:annotation-config/>
@@ -21,6 +26,13 @@
         </property>
     </bean>
 
+    <!--<bean id="envUtil" class="com.markeveryday.utils.EnvUtil" lazy-init="false" scope="singleton">
+        <property name="props">
+            <list>
+                <value>classpath:*.properties</value>
+            </list>
+        </property>
+    </bean>-->
 
     <!--静态资源-->
     <mvc:resources mapping="/resources/**" location="resources/"/>
@@ -54,6 +66,8 @@
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="524288"/>
     </bean>
+
+
 
     <!-- 配置事务异常封装 -->
     <bean id="persistenceExceptionTranslationPostProcessor"

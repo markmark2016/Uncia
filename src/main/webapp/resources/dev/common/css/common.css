@@ -35,30 +35,33 @@ body {
 }
 
 .dropdown-menu > li > a:hover,
-.dropdown-menu > li > a:focus{
+.dropdown-menu > li > a:focus {
     color: #fff;
     background-color: #3b73af;
 }
 
-
 /*Angular NG*/
+select.ng-invalid,
+textarea.ng-invalid,
 input.ng-invalid {
     border: 1px solid #d9534f !important;
 }
 
-
-
-
-
-
-
-
-
-
 /*Modal*/
-.mark-modal .modal-content {
-    border-radius: 0 !important;
+.mark-modal .modal-header {
+    background-color: #EEE;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
 }
+
+.mark-modal .modal-content {
+    border-radius: 4px !important;
+}
+
+.mark-modal .modal-body {
+    margin: 15px;
+}
+
 .mark-modal .modal-footer {
     text-align: center !important;
 }

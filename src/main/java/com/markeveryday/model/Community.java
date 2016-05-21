@@ -31,8 +31,8 @@ public class Community {
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @Column(name = "IMAGE_ID")
-    private Long imageId;
+    @Column(name = "IMAGE")
+    private String image;
 
     @Column(name = "SLOGAN")
     private String slogan;
@@ -73,12 +73,12 @@ public class Community {
         this.description = description;
     }
 
-    public Long getImageId() {
-        return imageId;
+    public String getImage() {
+        return image;
     }
 
-    public void setImageId(Long imageId) {
-        this.imageId = imageId;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getSlogan() {
