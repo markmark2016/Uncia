@@ -11,4 +11,5 @@ public interface GroupBookRelService {
 
     void deleteByGroupId(Long groupId);
 
+    GroupBookRel findByGroupId(Long groupId);
 }

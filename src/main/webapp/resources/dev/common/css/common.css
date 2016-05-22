@@ -40,6 +40,13 @@ body {
     background-color: #3b73af;
 }
 
+select {
+    padding: 5px;
+    margin: 0;
+    width: 200px;
+    -webkit-appearance: none; /* remove the strong OSX influence from Webkit */
+}
+
 /*Angular NG*/
 select.ng-invalid,
 textarea.ng-invalid,

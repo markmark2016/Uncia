@@ -1,0 +1,44 @@
+<div class="modal-header">
+    <h3 class="modal-title">管理阅读图书</h3>
+</div>
+<div class="modal-body">
+
+    <div class="row" ng-show="currentGroupBookRel.id !== null">
+        <p>当前组所关联的图书:</p>
+    </div>
+    <div class="row list-book" ng-show="currentBook">
+        <table class="table table-hover book-table">
+            <thead>
+            <tr>
+                <th>书名</th>
+                <th>作者</th>
+                <th>概述</th>
+                <th>封面</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{currentBook.name}}</td>
+                <td>{{currentBook.author}}</td>
+                <td>{{currentBook.summary}}</td>
+                <td class="book-image"><img ng-src="{{currentBook.coverImage}}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row">
+
+        <label class="col-sm-4 control-label" style="padding-top: 5px;">选择与当前组关联的图书</label>
+        <div class="col-md-8">
+            <select ng-options="book.name for book in books track by book.id"
+                    ng-model="currentBook"></select>
+        </div>
+    </div>
+
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-success" type="button" ng-click="groupBookCtrl.save()">保存</button>
+    <button class="btn btn-primary" type="button" ng-click="$close()">取消</button>
+</div>

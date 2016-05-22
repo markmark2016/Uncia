@@ -8,6 +8,7 @@ import com.markeveryday.model.Community;
 import com.markeveryday.model.CommunityCategoryRel;
 import com.markeveryday.model.Enterprise;
 import com.markeveryday.model.Group;
+import com.markeveryday.model.GroupBookRel;
 import com.markeveryday.security.LoginHelper;
 import com.markeveryday.service.AccountService;
 import com.markeveryday.service.BookService;
@@ -15,6 +16,7 @@ import com.markeveryday.service.CategoryService;
 import com.markeveryday.service.CommunityCategoryRelService;
 import com.markeveryday.service.CommunityService;
 import com.markeveryday.service.EnterpriseService;
+import com.markeveryday.service.GroupBookRelService;
 import com.markeveryday.service.GroupService;
 import com.markeveryday.service.RoleService;
 import com.markeveryday.service.UserService;
@@ -56,6 +58,8 @@ public class AdminController {
     private AccountService accountService;
     @Autowired
     private GroupService groupService;
+    @Autowired
+    private GroupBookRelService groupBookRelService;
     @Autowired
     private BookService bookService;
     @Autowired
@@ -228,13 +232,34 @@ public class AdminController {
     @ResponseBody
     public String deleteGroup(@PathVariable Long groupId) {
 
-        if(groupId == null){
-           return Constants.RESPONSE_SUCCESS;
+        if (groupId == null) {
+            return Constants.RESPONSE_SUCCESS;
         }
         groupService.deleteGroup(groupId);
         return Constants.RESPONSE_SUCCESS;
 
 
+    }
+
+
+    @RequestMapping(value = "/group/book/delete/{groupId}", method = RequestMethod.GET)
+    @ResponseBody
+    public String deleteGroupBookRel(@PathVariable Long groupId) {
+
+        if (groupId == null) {
+            return Constants.RESPONSE_SUCCESS;
+        }
+        groupBookRelService.deleteByGroupId(groupId);
+        return Constants.RESPONSE_SUCCESS;
+    }
+
+
+    @RequestMapping(value = "/group/book/save/", method = RequestMethod.POST)
+    @ResponseBody
+    public String saveGroupBookRel(@RequestBody GroupBookRel rel) {
+
+        groupBookRelService.save(rel);
+        return Constants.RESPONSE_SUCCESS;
     }
 
 }

@@ -151,6 +151,88 @@ define(['app', 'constants', 'angular'], function (app, constants, angular) {
             );
         };
 
+        self.editBookInGroup = function (groupId) {
+            self.modalInstance = $uibModal.open(
+                {
+                    controller: function ($scope) {
+                        $scope.currentGroupBookRel = {
+                            id: null,
+                            groupId: groupId || null,
+                            bookId: null
+                        };
+
+                        $scope.books = [];
+                        $scope.currentBook = {};
+
+                        adminDataService.getGroupBookRelByGroupId(groupId)
+                            .then(function (result) {
+                                $scope.currentGroupBookRel = result || {
+                                        id: null,
+                                        groupId: groupId || null,
+                                        bookId: null
+                                    };
+                            }).then(function () {
+                            adminDataService.getBooks()
+                                .then(function (result) {
+                                    $scope.books = result || [];
+                                })
+                                .then(function () {
+                                    $scope.currentBook = getBook($scope.currentGroupBookRel.bookId);
+                                })
+                        });
+
+                        function getBook(bookId) {
+                            for (var i = 0; i < $scope.books.length; i++) {
+                                if ($scope.books[i].id
+                                    === bookId) {
+                                    return $scope.books[i];
+                                }
+                            }
+                        }
+
+                        this.delete = function () {
+                            adminDataService.deleteGroupBook($scope.currentGroupBookRel.id)
+                                .then(function (result) {
+                                    if (result === "SUCCESS") {
+                                        $scope.currentBook = {};
+                                        $scope.currentGroupBookRel = {
+                                            id: null,
+                                            groupId: groupId || null,
+                                            bookId: null
+                                        };
+                                    }
+                                })
+                        };
+
+                        this.save = function () {
+                            adminDataService.saveGroupBook($scope.currentGroupBookRel)
+                                .then(function (result) {
+                                    if (result === "SUCCESS") {
+                                        self.cancel();
+                                    }
+                                })
+                        };
+
+                        $scope.$watch(function () {
+                            return $scope.currentBook;
+                        }, function (newVal) {
+                            if ($scope.currentGroupBookRel && $scope.currentBook) {
+                                $scope.currentGroupBookRel.bookId = newVal.id;
+                            }
+                        })
+
+                    },
+                    controllerAs: 'groupBookCtrl',
+                    openedClass: 'mark-modal-body',
+                    size: 'md',
+                    templateUrl: constants.resource(
+                        '/admin/tpl/edit-book-for-group.html'),
+                    windowClass: 'mark-modal'
+                }
+            );
+
+        };
+
         self.cancel = function () {
             self.modalInstance && self.modalInstance.close();
         }

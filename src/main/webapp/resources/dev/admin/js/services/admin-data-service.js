@@ -90,13 +90,13 @@ define(['app', 'constants'], function (app, constants) {
 
         self.deleteCommunity = function (communityId) {
             return $http.get(
-                constants.api('admin/community/delete/'+communityId))
+                constants.api('admin/community/delete/' + communityId))
                 .then(function (result) {
                     return result.data;
                 });
         };
 
-        self.getGroups = function(){
+        self.getGroups = function () {
             return $http.get(
                 constants.api('api/enterprise/groups/'))
                 .then(function (result) {
@@ -104,7 +104,7 @@ define(['app', 'constants'], function (app, constants) {
                 });
         };
 
-        self.saveGroup = function(group){
+        self.saveGroup = function (group) {
             return $http.post(
                 constants.api('admin/group/save/'), group)
                 .then(function (result) {
@@ -112,19 +112,33 @@ define(['app', 'constants'], function (app, constants) {
                 });
         };
 
-        self.deleteGroup = function(groupId){
+        self.deleteGroup = function (groupId) {
             return $http.get(
-                constants.api('admin/group/delete/'+groupId))
+                constants.api('admin/group/delete/' + groupId))
+                .then(function (result) {
+                    return result.data;
+                });
+        };
+        self.deleteGroupBook = function (groupId) {
+            return $http.get(constants.api('admin/group/book/delete/' + groupId))
+                .then(function (result) {
+                    return result.data;
+                });
+        };
+
+        self.saveGroupBook = function (groupBookRel) {
+            return $http.post(constants.api('admin/group/book/save/'), groupBookRel)
+                .then(function (result) {
+                    return result.data;
+                });
+        };
+
+        self.getGroupBookRelByGroupId = function (groupId) {
+            return $http.get(constants.api('api/group/book/' + groupId))
                 .then(function (result) {
                     return result.data;
                 });
         }
-        
-        
-        
-        
-        
-        
 
     }
 

@@ -18,6 +18,7 @@ import com.markeveryday.model.Community;
 import com.markeveryday.model.CommunityCategoryRel;
 import com.markeveryday.model.Enterprise;
 import com.markeveryday.model.Group;
+import com.markeveryday.model.GroupBookRel;
 import com.markeveryday.model.Role;
 import com.markeveryday.security.LoginHelper;
 import com.markeveryday.service.AccountService;
@@ -26,6 +27,7 @@ import com.markeveryday.service.CategoryService;
 import com.markeveryday.service.CommunityCategoryRelService;
 import com.markeveryday.service.CommunityService;
 import com.markeveryday.service.EnterpriseService;
+import com.markeveryday.service.GroupBookRelService;
 import com.markeveryday.service.GroupService;
 import com.markeveryday.service.RoleService;
 import com.markeveryday.service.UserService;
@@ -53,6 +55,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.ws.rs.Path;
+
 /**
  * API controller
  *
@@ -71,6 +75,8 @@ public class ApiController {
     private AccountService accountService;
     @Autowired
     private GroupService groupService;
+    @Autowired
+    private GroupBookRelService groupBookRelService;
     @Autowired
     private BookService bookService;
     @Autowired
@@ -308,6 +314,15 @@ public class ApiController {
     @ResponseBody
     public List<Category> getCategories() {
         return categoryService.getAllCategories();
+    }
+
+
+
+    @RequestMapping(value = "/group/book/{groupId}", method = RequestMethod.GET)
+    @ResponseBody
+    public GroupBookRel getGroupBookRel(@PathVariable Long groupId) {
+        return groupBookRelService.findByGroupId(groupId);
+
     }
 
 
