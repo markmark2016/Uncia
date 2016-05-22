@@ -45,8 +45,8 @@ define(
                 .state('admin.group', {
                     url: 'group',
                     templateUrl: constants.resource('/admin/tpl/group.html'),
-                    controller: 'AdminController',
-                    controllerAs: 'aCtrl'
+                    controller: 'AdminGroupController',
+                    controllerAs: 'gCtrl'
                 })
                 .state('admin.book', {
                     url: 'book',

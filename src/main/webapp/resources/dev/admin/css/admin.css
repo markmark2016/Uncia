@@ -211,3 +211,8 @@
 form[name="editCommunityForm"] .preview-image > img {
     width: 300px;
 }
+
+
+.row.list-groups {
+    margin-top: 20px;
+}

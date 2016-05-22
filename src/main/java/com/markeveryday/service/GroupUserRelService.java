@@ -16,4 +16,5 @@ public interface GroupUserRelService {
     List<GroupUserRel> getUserRelsByGroupId(Long groupId);
 
 
+    void deleteByGroupId(Long groupId);
 }

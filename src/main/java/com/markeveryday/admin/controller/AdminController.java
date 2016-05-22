@@ -1,10 +1,14 @@
 package com.markeveryday.admin.controller;
 
 import com.markeveryday.bean.CommunityCategoryBean;
+import com.markeveryday.model.Account;
 import com.markeveryday.model.Book;
 import com.markeveryday.model.Category;
 import com.markeveryday.model.Community;
 import com.markeveryday.model.CommunityCategoryRel;
+import com.markeveryday.model.Enterprise;
+import com.markeveryday.model.Group;
+import com.markeveryday.security.LoginHelper;
 import com.markeveryday.service.AccountService;
 import com.markeveryday.service.BookService;
 import com.markeveryday.service.CategoryService;
@@ -124,15 +128,15 @@ public class AdminController {
         community.setDescription(description);
         community.setModTime(new Date());
 
-        if(StringUtils.isEmpty(community.getImage())){
-            if(file != null){
+        if (StringUtils.isEmpty(community.getImage())) {
+            if (file != null) {
                 String imageUrl = QiNiuUtil.upload(file);
                 if (StringUtils.isNotEmpty(imageUrl)) {
                     community.setImage(imageUrl);
                 } else {
                     community.setImage("DEFAULT");
                 }
-            }else {
+            } else {
                 community.setImage("DEFAULT");
             }
 
@@ -196,5 +200,41 @@ public class AdminController {
         return Constants.RESPONSE_SUCCESS;
     }
 
+
+    @RequestMapping(value = "/group/save", method = RequestMethod.POST)
+    @ResponseBody
+    public String saveGroup(@RequestBody Group group) {
+
+        if (group != null && group.getEnterpriseId() == null) {
+            Account account =
+                    accountService.findByUsername(LoginHelper.getLoginUser().getUsername());
+            if (account != null) {
+                Enterprise currentLoginEnterprise =
+                        enterpriseService.findByAccountId(account.getId());
+                if (currentLoginEnterprise != null) {
+                    group.setEnterpriseId(currentLoginEnterprise.getId());
+                    group.setCreator(LoginHelper.getLoginUser().getUsername());
+                }
+            }
+        }
+        groupService.saveGroup(group);
+        return Constants.RESPONSE_SUCCESS;
+
+
+    }
+
+
+    @RequestMapping(value = "/group/delete/{groupId}", method = RequestMethod.GET)
+    @ResponseBody
+    public String deleteGroup(@PathVariable Long groupId) {
+
+        if(groupId == null){
+           return Constants.RESPONSE_SUCCESS;
+        }
+        groupService.deleteGroup(groupId);
+        return Constants.RESPONSE_SUCCESS;
+
+
+    }
 
 }

@@ -96,9 +96,35 @@ define(['app', 'constants'], function (app, constants) {
                 });
         };
 
-        self.getCategoryById = function (CommunityId) {
-
+        self.getGroups = function(){
+            return $http.get(
+                constants.api('api/enterprise/groups/'))
+                .then(function (result) {
+                    return result.data;
+                });
         };
+
+        self.saveGroup = function(group){
+            return $http.post(
+                constants.api('admin/group/save/'), group)
+                .then(function (result) {
+                    return result.data;
+                });
+        };
+
+        self.deleteGroup = function(groupId){
+            return $http.get(
+                constants.api('admin/group/delete/'+groupId))
+                .then(function (result) {
+                    return result.data;
+                });
+        }
+        
+        
+        
+        
+        
+        
 
     }
 

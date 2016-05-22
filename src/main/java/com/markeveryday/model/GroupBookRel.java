@@ -34,8 +34,8 @@ public class GroupBookRel {
     @Column(name = "GROUP_ID")
     private Long groupId;
 
-    @Column(name = "SLOGN")
-    private String slogn;
+    @Column(name = "SLOGAN")
+    private String slogan;
 
     @Column(name = "STATUS")
     @Enumerated(EnumType.STRING)
@@ -77,12 +77,12 @@ public class GroupBookRel {
         this.groupId = groupId;
     }
 
-    public String getSlogn() {
-        return slogn;
+    public String getSlogan() {
+        return slogan;
     }
 
-    public void setSlogn(String slogn) {
-        this.slogn = slogn;
+    public void setSlogan(String slogan) {
+        this.slogan = slogan;
     }
 
     public ReadStatus getStatus() {

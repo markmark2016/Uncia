@@ -1,3 +1,47 @@
-<div>
-    小组管理
+<div class="main-content-wrapper">
+    <div class="row search-or-add">
+        <div class="col-lg-6">
+            <button type="button" class="btn btn-success"
+                    ng-click="gCtrl.addGroup()"><i class="fa fa-plus"></i>&nbsp;&nbsp;新建小组
+            </button>
+        </div>
+    </div>
+    <div class="row list-groups">
+        <table class="table table-hover admin-info-table">
+            <thead>
+            <tr>
+                <th>小组名称</th>
+                <th>简介</th>
+                <th>活动开始时间</th>
+                <th>活动结束时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="group in gCtrl.groups track by group.id">
+                <td>{{group.groupName}}</td>
+                <td>{{group.description}}</td>
+                <td>{{group.startTime}}</td>
+                <td>{{group.endTime}}</td>
+                <td class="operations">
+                    <div class="btn-group" uib-dropdown>
+                        <button type="button" class="btn btn-primary"
+                                uib-dropdown-toggle ng-disabled="disabled">
+                            <i class="fa fa-md fa-cog"></i>操作 <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu book-operations" uib-dropdown-menu role="menu"
+                            aria-labelledby="single-button">
+                            <li role="menuitem"><a href=""
+                                                   ng-click="gCtrl.editGroup(group)">编辑</a>
+                            </li>
+                            <li role="menuitem"><a href=""
+                                                   ng-click="gCtrl.deleteGroup(group.id)">删除</a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

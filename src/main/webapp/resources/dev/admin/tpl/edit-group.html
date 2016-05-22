@@ -1,0 +1,141 @@
+<div class="modal-header">
+    <h3 class="modal-title">编辑小组</h3>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal" name="editGroupForm">
+        <div class="form-group">
+            <label for="groupNameInput" class="col-sm-2 control-label">组名</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="groupNameInput" name="name"
+                       placeholder="组名"
+                       ng-model="group.groupName" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="summaryTextArea" class="col-sm-2 control-label">小组简介</label>
+            <div class="col-sm-10">
+                <textarea id="summaryTextArea" class="form-control" name="description"
+                          ng-model="group.description" required
+                          placeholder="输入对小组的简介">
+                </textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="sloganInput" class="col-sm-2 control-label">阅读口号</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="sloganInput" name="slogan"
+                       placeholder="阅读口号" ng-model="group.slogan"
+                       required>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">开始日期</label>
+            <div class="col-sm-10">
+                <p class="input-group">
+                    <input type="text" class="form-control"
+                           uib-datepicker-popup="yyyy-MM-dd HH:mm:ss"
+                           ng-model="startTime"
+                           is-open="startTimePopup.open" datepicker-options="dateOptions"
+                           ng-required="true" close-text="Close"/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" style="height: 34px"
+                                ng-click="openStartTime()"><i
+                                class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">结束日期</label>
+            <div class="col-sm-10">
+                <p class="input-group">
+                    <input type="text" class="form-control"
+                           uib-datepicker-popup="yyyy-MM-dd HH:mm:ss"
+                           ng-model="endTime"
+                           is-open="endTimePopup.open" datepicker-options="dateOptions"
+                           ng-required="true" close-text="Close"/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" style="height: 34px"
+                                ng-click="openEndTime()"><i
+                                class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">最晚加入日期</label>
+            <div class="col-sm-10">
+                <p class="input-group">
+                    <input type="text" class="form-control"
+                           uib-datepicker-popup="yyyy-MM-dd HH:mm:ss"
+                           ng-model="deadlineTime"
+                           is-open="deadlineTimePopup.open" datepicker-options="dateOptions"
+                           ng-required="true" close-text="Close"/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" style="height: 34px"
+                                ng-click="openDeadlineTime()"><i
+                                class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="frequencyInput" class="col-sm-2 control-label">打卡频率</label>
+            <div class="col-sm-10">
+                <input id="frequencyInput" class="form-control" name="frequency"
+                       ng-model="group.frequency" required
+                       placeholder="打卡频率, n 天一次"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="frequencyInput" class="col-sm-2 control-label">新增成员方式</label>
+            <div class="col-sm-10">
+                <div class="btn-group">
+                    <label class="btn btn-success" ng-model="group.addMemberType"
+                           uib-btn-radio="true">无限制加入</label>
+                    <label class="btn btn-success" ng-model="group.addMemberType"
+                           uib-btn-radio="false">活动开始后不能加入</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">列表是否可见</label>
+            <div class="col-sm-10">
+                <div class="btn-group">
+                    <label class="btn btn-success" ng-model="group.visiable"
+                           uib-btn-radio="true">可见</label>
+                    <label class="btn btn-success" ng-model="group.visiable" uib-btn-radio="false">不可见</label>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">书评是否可见</label>
+            <div class="col-sm-10">
+                <div class="btn-group">
+                    <label class="btn btn-success" ng-model="group.remarkVisiable"
+                           uib-btn-radio="true">可见</label>
+                    <label class="btn btn-success" ng-model="group.remarkVisiable"
+                           uib-btn-radio="false">不可见</label>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-success" type="submit" ng-disabled="editGroupForm.$invalid"
+            ng-click="groupEditCtrl.save()">保存
+    </button>
+    <button class="btn btn-primary" type="button" ng-click="$close()">取消</button>
+</div>

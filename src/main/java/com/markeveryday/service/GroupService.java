@@ -19,5 +19,8 @@ public interface GroupService {
 
 
 
+    void saveGroup(Group group);
 
+
+    void deleteGroup(Long groupId);
 }
