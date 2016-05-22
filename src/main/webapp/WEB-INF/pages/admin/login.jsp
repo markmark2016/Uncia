@@ -68,7 +68,7 @@
                         </div>
                     </div>
                 </c:if>
-                <button type="submit" name="go" class="btn btn-success btn-block">登录</button>
+                <button type="submit" name="go" class="btn btn-primary btn-block">登录</button>
             </form>
         </section>
     </section>
